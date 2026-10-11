@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../favicon.png">
+<title>SATER Motherhood Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Karla:wght@400;500;600&family=Aref+Ruqaa:wght@400;700&display=swap">
+</head>
+<body>
+<style>
+/* V5 The Motherhood Story — a narrative in five chapters that moves from night (the logo's teal) through dawn (blush) into day (cream).
+   Products arrive at the story's turning point. A chapter guide stays on screen; Shop and Order are always one tap away.
+   Deliberately single-theme: the brand palette is the design, so every colour is set explicitly. */
+:root {
+  color-scheme: light;
+  --night: #224E51;       /* sampled: the logo's own background */
+  --night-deep: #183D40;
+  --sleeve: #41666C;      /* sampled */
+  --terracotta: #CC8275;  /* sampled */
+  --blush: #F7CAC7;       /* sampled */
+  --brown: #533127;       /* sampled */
+  --dawn: #F4DAD3;
+  --morning: #F8EBE3;
+  --day: #FBF6EE;
+  --mist: #DCE6E3;
+  --ink: #3A2620;
+  --muted: #6B5249;
+  --on-night: #D2DFDD;
+  --clay-ink: #985446;
+
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Karla", "Segoe UI", system-ui, sans-serif;
+  --ruqaa: "Aref Ruqaa", "Noto Naskh Arabic", serif;
+
+  --s0: 1.1875rem;
+  --s2: clamp(1.7rem, 1.25rem + 1.6vw, 2.5rem);
+  --s3: clamp(2.2rem, 1.4rem + 3vw, 4rem);
+  --s4: clamp(2.6rem, 1.5rem + 4.4vw, 5.4rem);
+  --gutter: clamp(16px, 5vw, 80px);
+  --max: 1180px;
+  --soft: cubic-bezier(.33, 0, .2, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--day); color: var(--ink); font-family: var(--serif); font-size: var(--s0); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 300; margin: 0; line-height: 1.08; letter-spacing: -.015em; text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.sans { font-family: var(--sans); }
+.label { font-family: var(--sans); font-size: .8125rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.tbc { display: inline-block; font: 600 .6875rem/1.5 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--clay-ink); background: rgba(204,130,117,.14); border-radius: 999px; padding: .1em .6em; vertical-align: middle; white-space: nowrap; font-style: normal; }
+.night .tbc { color: var(--blush); background: rgba(247,202,199,.14); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .6em; min-height: 50px; padding: 0 1.6em; border-radius: 999px; font: 500 1rem var(--sans); text-decoration: none; border: 1px solid currentColor; cursor: pointer; transition: background-color .5s var(--soft), color .5s var(--soft), border-color .5s; }
+.btn-fill { background: var(--night); border-color: var(--night); color: var(--day); }
+.btn-fill:hover { background: var(--night-deep); }
+.btn-ghost { background: transparent; color: inherit; }
+.night .btn-blush { background: var(--blush); border-color: var(--blush); color: var(--night-deep); }
+.night .btn-blush:hover { background: var(--day); border-color: var(--day); }
+.btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+
+/* Prototype note */
+.note { background: var(--night-deep); color: var(--on-night); font: 400 .75rem var(--sans); padding: .45rem var(--gutter); display: flex; flex-wrap: wrap; gap: .2rem 1rem; justify-content: space-between; }
+
+/* Header adapts to the chapter beneath it */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; height: 68px; padding-inline: var(--gutter); color: var(--day); background: color-mix(in srgb, var(--night) 88%, transparent); backdrop-filter: blur(12px); transition: background-color .8s var(--soft), color .8s var(--soft); }
+body[data-tone="light"] .top { color: var(--ink); background: color-mix(in srgb, var(--day) 88%, transparent); }
+.top .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; font: 500 1rem var(--sans); letter-spacing: .3em; }
+.top .disc { width: 42px; height: 42px; border-radius: 50%; background: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 1px rgba(247,202,199,.35); }
+.top .disc { overflow: hidden; flex: none; }
+.top .disc img { height: 33px; width: auto; }
+.top .chap { font: italic 400 1rem var(--serif); opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40vw; }
+.top .acts { justify-self: end; display: flex; gap: .5rem; }
+.top .acts a { min-height: 44px; padding: 0 1.1em; font-size: .9375rem; }
+.top .acts .shop { border-color: transparent; }
+.progress { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: transparent; }
+.progress i { display: block; height: 100%; background: var(--terracotta); transform-origin: left; transform: scaleX(var(--p, 0)); }
+
+/* Chapter guide (desktop) */
+.guide { position: fixed; z-index: 30; left: max(12px, calc(var(--gutter) / 3)); top: 50%; transform: translateY(-50%); display: grid; gap: .9rem; list-style: none; margin: 0; padding: 0; }
+.guide a { display: flex; align-items: center; gap: .7rem; text-decoration: none; font: 500 .75rem var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); min-height: 24px; }
+.guide a i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; transition: background-color .4s, transform .4s var(--soft); }
+.guide a span { opacity: 0; transform: translateX(-6px); transition: opacity .4s, transform .4s var(--soft); white-space: nowrap; }
+.guide a:hover span, .guide a:focus-visible span, .guide a.on span { opacity: 1; transform: none; }
+.guide a.on i { background: var(--terracotta); border-color: var(--terracotta); transform: scale(1.3); }
+body[data-tone="dark"] .guide a { color: var(--on-night); }
+
+/* Opening: night */
+.night { background: var(--night); color: var(--day); }
+.opening { position: relative; text-align: center; padding-block: clamp(3rem, 7vw, 6rem) clamp(3rem, 6vw, 5rem); overflow: hidden; }
+.opening .glow { position: absolute; left: 50%; top: 42%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(247,202,199,.20), rgba(247,202,199,.06) 45%, transparent 68%); border-radius: 50%; animation: breathe 7s ease-in-out infinite; pointer-events: none; }
+@keyframes breathe { 50% { transform: translate(-50%, -50%) scale(1.08); opacity: .75; } }
+.opening .logo-anim { width: clamp(170px, 22vw, 270px); margin: 0 auto; position: relative; }
+.opening h1 { font-size: var(--s3); font-style: italic; margin-top: clamp(1.8rem, 4vw, 2.8rem); position: relative; }
+.opening .sub { margin-top: 1rem; color: var(--on-night); font-size: 1.15rem; position: relative; }
+.opening .acts { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2rem; position: relative; }
+.opening .cue { display: inline-flex; flex-direction: column; align-items: center; gap: .4rem; margin-top: 2.6rem; font: 500 .8125rem var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--on-night); text-decoration: none; position: relative; }
+.opening .cue i { width: 1px; height: 42px; background: linear-gradient(var(--blush), transparent); animation: cue 2.4s var(--soft) infinite; transform-origin: top; }
+@keyframes cue { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* Chapters */
+.chapter { position: relative; padding-block: clamp(5rem, 11vw, 9rem); }
+.chapter .num { font: italic 400 1.05rem var(--serif); color: var(--clay-ink); display: flex; align-items: center; gap: .8rem; margin-bottom: 1.4rem; }
+.chapter .num::after { content: ""; width: 48px; height: 1px; background: currentColor; opacity: .5; }
+.night .num { color: var(--blush); }
+.blend-down::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(transparent, var(--next)); pointer-events: none; }
+
+.c1 { background: var(--night); color: var(--day); --next: var(--mist); }
+.c1 .grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.c1 h2 { font-size: var(--s4); }
+.c1 p.body { margin-top: 1.6rem; color: var(--on-night); font-size: 1.3rem; max-width: 30rem; }
+.vignette { border-radius: 50% 50% 46% 46% / 40% 40% 60% 60%; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 0 0 1px rgba(247,202,199,.2), 0 0 0 14px rgba(247,202,199,.05); }
+
+.c2 { background: var(--mist); color: var(--ink); --next: var(--dawn); }
+.c2 .lines { max-width: 44rem; margin-inline: auto; text-align: center; display: grid; gap: clamp(1.4rem, 3vw, 2.4rem); }
+.c2 .lines p { font-size: var(--s2); line-height: 1.25; font-weight: 300; }
+.c2 .lines p:first-child { color: var(--night); font-style: italic; }
+.c2 .lines p.strike { color: var(--muted); }
+
+.c3 { background: linear-gradient(var(--dawn), var(--morning)); --next: var(--day); }
+.c3 .turn { text-align: center; max-width: 52rem; margin: 0 auto clamp(3rem, 6vw, 5rem); }
+.c3 .turn h2 { font-size: var(--s4); }
+.c3 .turn h2 em { color: var(--clay-ink); }
+.c3 .turn p { margin-top: 1.2rem; color: var(--muted); font-family: var(--sans); font-size: 1rem; }
+.made { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
+.made a { text-decoration: none; display: grid; gap: .8rem; align-content: start; min-width: 0; }
+.made a:nth-child(1) { grid-column: span 3; }
+.made a:nth-child(2) { grid-column: span 3; margin-top: clamp(2rem, 6vw, 5rem); }
+.made a:nth-child(n+3) { grid-column: span 2; }
+.made .img { border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; transition: transform 1s var(--soft); }
+.made a:nth-child(1) .img, .made a:nth-child(2) .img { aspect-ratio: 5 / 4; }
+.made a:hover .img { transform: translateY(-6px); }
+.made .t { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; }
+.made h3 { font-size: clamp(1.35rem, 1.1rem + .9vw, 1.9rem); }
+.made .ar { font-family: var(--ruqaa); font-size: 1.25rem; color: var(--clay-ink); }
+.made p { font-family: var(--sans); font-size: .9375rem; color: var(--muted); }
+
+.c4 { background: var(--day); }
+.c4 .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.c4 h2 { font-size: var(--s3); font-style: italic; }
+.c4 .sub { margin-top: 1rem; color: var(--muted); }
+.c4 .stage { border-radius: 30px; overflow: hidden; aspect-ratio: 4 / 4.4; }
+.feat { margin-top: 2rem; display: grid; gap: 1.2rem; padding: clamp(1.4rem, 3vw, 2rem); border-radius: 24px; background: #FFFFFF; box-shadow: 0 30px 60px -40px rgba(83,49,39,.35); }
+.feat h3 { font-size: 1.7rem; }
+.feat .price { font: 400 1.5rem var(--serif); display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
+.swatches { display: flex; flex-wrap: wrap; gap: .5rem; }
+.swatches button { min-height: 46px; padding: 0 1.1em; border-radius: 999px; border: 1px solid rgba(83,49,39,.2); background: var(--day); color: var(--ink); font: 500 .9375rem var(--sans); cursor: pointer; transition: background-color .4s, border-color .4s; }
+.swatches button .ar { font-family: var(--ruqaa); margin-inline-start: .3rem; color: var(--clay-ink); }
+.swatches button[aria-pressed="true"] { background: var(--night); border-color: var(--night); color: var(--day); }
+.swatches button[aria-pressed="true"] .ar { color: var(--blush); }
+.fine { font: 400 .9375rem/1.6 var(--sans); color: var(--muted); }
+.fine button { all: unset; cursor: pointer; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; padding-block: 11px; margin-block: -11px; }
+
+.c5 { background: linear-gradient(var(--day), var(--morning)); text-align: center; }
+.c5 .goal { font-size: var(--s3); max-width: 22ch; margin: 0 auto; line-height: 1.2; }
+.c5 .goal em { color: var(--clay-ink); }
+.ways { margin-top: clamp(3rem, 6vw, 4.5rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; text-align: start; }
+.way { border-radius: 22px; background: #FFFFFF; padding: 1.4rem; display: grid; gap: .35rem; text-decoration: none; min-width: 0; box-shadow: 0 1px 0 rgba(83,49,39,.08); transition: transform .6s var(--soft), box-shadow .6s var(--soft); }
+a.way:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -30px rgba(83,49,39,.45); }
+.way .label { color: var(--clay-ink); }
+.way b { font: 400 1.45rem var(--serif); }
+.way span { font: 400 .9375rem var(--sans); color: var(--muted); overflow-wrap: anywhere; }
+.custom { margin-top: 1rem; border-radius: 22px; background: var(--night); color: var(--day); padding: clamp(1.4rem, 3vw, 2.2rem); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem 2rem; text-align: start; }
+.custom b { font: italic 400 clamp(1.3rem, 1.1rem + 1vw, 1.9rem) var(--serif); }
+.custom .fine { color: var(--on-night); }
+.policy-link { margin-top: 2rem; font: 400 1rem var(--sans); }
+.policy-link button { all: unset; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--terracotta); display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Placeholder: soft, light-filled */
+.ph { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; padding: 1rem; background: radial-gradient(90% 70% at 30% 20%, rgba(255,255,255,.55), transparent 60%), var(--t, var(--dawn)); }
+.ph .in { display: grid; gap: .3rem; justify-items: center; max-width: 18rem; }
+.ph .code { font: 600 .6875rem var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--clay-ink); background: rgba(255,255,255,.85); border-radius: 999px; padding: .25em .8em; }
+.ph .what { font: italic 400 1.05rem var(--serif); color: var(--ink); background: rgba(255,255,255,.7); border-radius: 6px; padding: .1em .55em; }
+.p-night { --t: #4A6E72; } .p-night .what { background: rgba(34,78,81,.6); color: var(--day); } .p-night .code { background: var(--night); color: var(--blush); }
+.p1 { --t: #EBCFC6; } .p2 { --t: #D7E2DE; } .p3 { --t: #EADFCF; } .p4 { --t: #E8C9BE; } .p5 { --t: #E1E6DA; } .p6 { --t: #F1DCD4; }
+
+/* Policy dialog */
+dialog.pol { width: min(660px, calc(100% - 32px)); max-height: min(86vh, 900px); border: 0; border-radius: 28px; padding: 0; background: var(--day); color: var(--ink); box-shadow: 0 40px 90px -40px rgba(24,61,64,.6); }
+dialog.pol::backdrop { background: rgba(24,61,64,.6); backdrop-filter: blur(3px); }
+.pol-in { padding: clamp(1.6rem, 5vw, 3rem); display: grid; gap: 1rem; }
+.pol-in h2 { font-size: var(--s2); font-style: italic; }
+.pol-in h3 { font-size: 1.4rem; margin-top: .5rem; }
+.pol-in ul { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: .45rem; }
+.pol-in li::marker { color: var(--terracotta); }
+.pol-x { position: sticky; top: 0; display: flex; justify-content: flex-end; padding: .9rem .9rem 0; background: var(--day); }
+.pol-x button { min-height: 44px; padding: 0 1.1em; border-radius: 999px; border: 1px solid rgba(83,49,39,.2); background: none; font: 500 .9375rem var(--sans); color: var(--ink); cursor: pointer; }
+
+/* Footer: back to night — the original logo on its own teal */
+.foot { background: var(--night); color: var(--on-night); padding-block: clamp(4rem, 8vw, 6rem) 2rem; text-align: center; position: relative; overflow: hidden; }
+.foot .orig { width: clamp(200px, 22vw, 280px); height: auto; aspect-ratio: 1; margin: 0 auto; position: relative; } /* the logo's own teal is the footer's teal: no visible edge */
+.foot .line { font: italic 300 var(--s2) var(--serif); color: var(--day); margin-top: .4rem; position: relative; }
+.foot-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin-top: clamp(3rem, 6vw, 4rem); padding-top: 2.4rem; border-top: 1px solid rgba(255,255,255,.14); text-align: start; }
+.foot h4 { margin: 0 0 .9rem; font: 600 .75rem var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--blush); }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; font: 400 1rem var(--sans); }
+.foot a, .foot li button { color: var(--day); text-decoration: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+.foot a:hover, .foot li button:hover { color: var(--blush); }
+.foot .base { margin-top: 2.6rem; padding-top: 1.3rem; border-top: 1px solid rgba(255,255,255,.14); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 2rem; font: 400 .8125rem var(--sans); }
+
+/* Logo (official artwork in four layers) — V5 reveal: gentle, with a heartbeat */
+.logo-anim { display: grid; aspect-ratio: 516 / 792; max-width: 100%; }
+.logo-anim img { grid-area: 1 / 1; width: 100%; height: auto; }
+.logo-anim .l-heart { transform-origin: 85% 32%; }
+.logo-anim.play .l-art { animation: s-hold 2.4s var(--soft) both; }
+.logo-anim.play .l-heart { animation: s-in 1s 1.7s var(--soft) both, s-beat 1.4s 2.6s ease-in-out 3; }
+.logo-anim.play .l-ar { animation: s-write 2s 1.3s cubic-bezier(.45,0,.25,1) both; }
+.logo-anim.play .l-word { animation: s-in 1.4s 2.7s var(--soft) both; }
+@keyframes s-hold { from { opacity: 0; filter: blur(8px); transform: scale(1.03); } to { opacity: 1; filter: none; transform: none; } }
+@keyframes s-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes s-beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.14); } 28% { transform: scale(1); } 42% { transform: scale(1.08); } 56% { transform: scale(1); } }
+@keyframes s-write { from { opacity: 0; clip-path: inset(0 0 0 100%); } 20% { opacity: 1; } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+.js .opening h1, .js .opening .sub, .js .opening .acts { animation: s-rise 1.2s var(--soft) both; }
+.js .opening h1 { animation-delay: .5s; } .js .opening .sub { animation-delay: .8s; } .js .opening .acts { animation-delay: 1s; }
+@keyframes s-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* Gentle reveals */
+.js .rv { opacity: 0; transform: translateY(20px); transition: opacity 1.4s var(--soft), transform 1.4s var(--soft); }
+.js .rv.in { opacity: 1; transform: none; }
+
+
+/* Comfortable tap targets on touch screens */
+@media (max-width: 960px) {
+  footer li > a, footer li > button { display: inline-flex; align-items: center; min-height: 44px; }
+  footer ul { gap: 0 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .rv { opacity: 1; transform: none; }
+}
+
+@media (max-width: 960px) {
+  .guide { display: none; }
+  .top { grid-template-columns: auto 1fr auto; }
+  .top .brand span:last-child { display: none; }
+  .top .chap { text-align: center; max-width: none; font-size: .9rem; }
+  .top .acts .shop { display: none; }
+  .c1 .grid, .c4 .grid { grid-template-columns: 1fr; }
+  .vignette { max-width: 420px; }
+  .made { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .made a:nth-child(n) { grid-column: span 1; margin-top: 0; }
+  .made a:nth-child(1) { grid-column: 1 / -1; }
+  .made a:nth-child(2) { grid-column: 1 / -1; }
+  .ways { grid-template-columns: 1fr 1fr; }
+  .foot-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .note .hide-sm { display: none; }
+  .top .chap { display: none; }
+  .opening .acts .btn { flex: 1 1 100%; }
+  .ways { grid-template-columns: 1fr; }
+  .made .img { border-radius: 18px; }
+}
+</style>
+
+<div class="note" role="note"><span>Design prototype · <strong>V5 The Motherhood Story</strong></span><span class="hide-sm">Tags marked <span class="tbc">TBC</span> await confirmation · photo spaces name the shot needed</span></div>
+
+<header class="top" id="top">
+  <a class="brand" href="#top" aria-label="SATER home"><span class="disc" aria-hidden="true"><img src="assets/logo/badge-160.webp" alt="" width="104" height="160"></span><span>SATER</span></a>
+  <span class="chap" id="chap-name" aria-hidden="true">Prologue</span>
+  <div class="acts"><a class="btn btn-ghost shop" href="#made">Shop</a><a class="btn btn-ghost" href="#order">Order</a></div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+</header>
+
+<ol class="guide" aria-label="Chapters">
+  <li><a href="#prologue" data-ch="prologue"><i></i><span>Prologue</span></a></li>
+  <li><a href="#ch1" data-ch="ch1"><i></i><span>Mothers first</span></a></li>
+  <li><a href="#ch2" data-ch="ch2"><i></i><span>So many products</span></a></li>
+  <li><a href="#made" data-ch="made"><i></i><span>What we made</span></a></li>
+  <li><a href="#ch4" data-ch="ch4"><i></i><span>Tested by us</span></a></li>
+  <li><a href="#order" data-ch="order"><i></i><span>Our goal</span></a></li>
+</ol>
+
+<main>
+  <section class="night opening" id="prologue" data-tone="dark" data-name="Prologue" aria-labelledby="h1">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="logo-anim" data-autoplay role="img" aria-label="SATER logo: a mother holding her sleeping baby, with the Arabic and English wordmark">
+      <img class="l-art" src="assets/logo/art.webp" alt="" width="516" height="792">
+      <img class="l-heart" src="assets/logo/heart.webp" alt="" width="516" height="792">
+      <img class="l-ar" src="assets/logo/arabic.webp" alt="" width="516" height="792">
+      <img class="l-word" src="assets/logo/wordmark.webp" alt="" width="516" height="792">
+    </div>
+    <div class="wrap">
+      <h1 id="h1">Sater started from a real experience… not just an idea.</h1>
+      <p class="sub">Our Story 🤍 · the baby essentials we made as mothers</p>
+      <div class="acts">
+        <a class="btn btn-blush" href="#ch1">Read our story</a>
+        <a class="btn btn-ghost" href="#made">Skip to the collection</a>
+      </div>
+      <a class="cue" href="#ch1"><span>Begin</span><i aria-hidden="true"></i></a>
+    </div>
+  </section>
+
+  <section class="chapter c1 blend-down" id="ch1" data-tone="dark" data-name="I · We are mothers first" aria-labelledby="ch1-t">
+    <div class="wrap grid">
+      <div class="rv">
+        <p class="num">Chapter I</p>
+        <h2 id="ch1-t">We are mothers first.</h2>
+        <p class="body">We’ve been through the same journey — the worries, the small details, and the constant need to keep our babies safe and comfortable.</p>
+      </div>
+      <div class="vignette rv"><div class="ph p-night"><div class="in"><span class="code">Photo P12 · optional</span><span class="what">A founder holding her baby, natural light (with consent)</span></div></div></div>
+    </div>
+  </section>
+
+  <section class="chapter c2 blend-down" id="ch2" data-tone="light" data-name="II · We tried so many products" aria-labelledby="ch2-t">
+    <div class="wrap">
+      <p class="num rv" style="justify-content:center">Chapter II</p>
+      <div class="lines">
+        <p class="rv" id="ch2-t">We tried so many products…</p>
+        <p class="rv strike">Some looked nice, but didn’t really work.</p>
+        <p class="rv strike">Some made things harder instead of easier.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter c3" id="made" data-tone="light" data-name="III · What we made" aria-labelledby="made-t">
+    <div class="wrap">
+      <div class="turn rv">
+        <p class="num" style="justify-content:center">Chapter III</p>
+        <h2 id="made-t">So we decided to create <em>what we wished we had.</em></h2>
+        <p>The collection, as it appears on SATER’s Instagram today. Product details and prices <span class="tbc">TBC</span></p>
+      </div>
+      <div class="made">
+        <a href="#ch4" class="rv"><div class="img"><div class="ph p1"><div class="in"><span class="code">Photo P1</span><span class="what">Bed bumper in a cot, morning light</span></div></div></div><div class="t"><h3>Bed Bumpers</h3><span class="ar" lang="ar">جوانب</span></div><p>Sponge, polygonal, bubbles, braided · made to measure</p></a>
+        <a href="#made" class="rv"><div class="img"><div class="ph p2"><div class="in"><span class="code">Photo P6 · P7</span><span class="what">Oval and round nests, side by side</span></div></div></div><div class="t"><h3>Baby Nests</h3><span class="ar" lang="ar">نيست</span></div><p>Oval and round · details <span class="tbc">TBC</span></p></a>
+        <a href="#made" class="rv"><div class="img"><div class="ph p3"><div class="in"><span class="code">Photo P8</span><span class="what">Muslin cover</span></div></div></div><div class="t"><h3>Muslin Covers</h3></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a href="#made" class="rv"><div class="img"><div class="ph p4"><div class="in"><span class="code">Photo P9</span><span class="what">Playmat</span></div></div></div><div class="t"><h3>Playmats</h3><span class="ar" lang="ar">بلاي مات</span></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a href="#made" class="rv"><div class="img"><div class="ph p5"><div class="in"><span class="code">Photo P10</span><span class="what">Organiser</span></div></div></div><div class="t"><h3>Organisers</h3><span class="ar" lang="ar">منظمات</span></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a href="#made" class="rv"><div class="img"><div class="ph p6"><div class="in"><span class="code">Photo P11</span><span class="what">Product to confirm</span></div></div></div><div class="t"><h3 class="ar" lang="ar" style="font-family:var(--ruqaa)">بورط</h3></div><p>English name &amp; details <span class="tbc">TBC</span></p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter c4" id="ch4" data-tone="light" data-name="IV · Tested by us" aria-labelledby="ch4-t">
+    <div class="wrap grid">
+      <div class="stage rv"><div class="ph p1" id="st-ph"><div class="in"><span class="code" id="st-code">Photo P2</span><span class="what" id="st-what">Sponge bumper, in use in the nursery</span></div></div></div>
+      <div class="rv">
+        <p class="num">Chapter IV</p>
+        <h2 id="ch4-t">Every product at Sater is tested by us, on our own babies.</h2>
+        <p class="sub">Designed to solve real problems we faced as moms.</p>
+        <div class="feat">
+          <p class="label" style="color:var(--clay-ink)">Featured · made to measure</p>
+          <h3>The bed bumper</h3>
+          <p class="price">EGP — <span class="tbc">Price TBC</span></p>
+          <div class="swatches" role="group" aria-label="Style">
+            <button type="button" aria-pressed="true" data-code="Photo P2" data-what="Sponge bumper, in use in the nursery" data-t="p1">Sponge <span class="ar" lang="ar">سفنج</span></button>
+            <button type="button" aria-pressed="false" data-code="Photo P3" data-what="Polygonal bumper, in use in the nursery" data-t="p2">Polygonal <span class="ar" lang="ar">مضلعة</span></button>
+            <button type="button" aria-pressed="false" data-code="Photo P4" data-what="Bubbles bumper, in use in the nursery" data-t="p6">Bubbles <span class="ar" lang="ar">بابلز</span></button>
+            <button type="button" aria-pressed="false" data-code="Photo P5" data-what="Braided bumper, in use in the nursery" data-t="p4">Braided <span class="ar" lang="ar">ضفيرة</span></button>
+          </div>
+          <p class="fine">Made to your cot’s measurements. Options, measuring guide and lead time <span class="tbc">TBC</span>. Made-to-measure items can only be exchanged or returned for a manufacturing defect, a size mistake or a product fault. <button type="button" data-policy>Read the policy</button></p>
+          <a class="btn btn-fill" href="#order" style="justify-self:start">Request this bumper</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter c5" id="order" data-tone="light" data-name="V · Our goal" aria-labelledby="goal-t">
+    <div class="wrap">
+      <p class="num rv" style="justify-content:center">Chapter V</p>
+      <h2 class="goal rv" id="goal-t">Our goal is simple:<br>To make motherhood a little easier…<br><em>And a lot more comfortable for both mom and baby 👶🏻✨</em></h2>
+      <div class="ways">
+        <a class="way rv" href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener"><span class="label">Instagram</span><b>Message us</b><span>@saterr1</span></a>
+        <a class="way rv" href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener"><span class="label">Facebook</span><b>Join our group</b><span>The SATER community</span></a>
+        <div class="way rv"><span class="label">WhatsApp</span><b>Order by chat</b><span>Number <span class="tbc">TBC</span></span></div>
+        <div class="way rv"><span class="label">Online</span><b>Order here</b><span>If website checkout is approved <span class="tbc">Pending</span></span></div>
+      </div>
+      <div class="custom night rv"><div><b>A bumper made to your cot’s exact size</b><p class="fine">Request steps follow SATER’s process. <span class="tbc">Process TBC</span></p></div><a class="btn btn-blush" href="#order" aria-disabled="true" title="The custom order page comes in a later stage">Start a request</a></div>
+      <p class="policy-link rv"><button type="button" data-policy>Exchange &amp; Return Policy</button></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot night" id="returns">
+  <div class="wrap">
+    <img class="orig" src="assets/logo/sater-logo-original.webp" alt="SATER logo: a mother holding her sleeping baby, with the Arabic and English wordmark" width="1080" height="1080" loading="lazy">
+    <p class="line">From moms like you, with love and care.</p>
+    <div class="foot-cols">
+      <div><h4>Collection</h4><ul><li><a href="#made">Bed Bumpers</a></li><li><a href="#made">Baby Nests</a></li><li><a href="#made">Muslin Covers</a></li><li><a href="#made">Playmats</a></li><li><a href="#made">Organisers</a></li></ul></div>
+      <div><h4>The story</h4><ul><li><a href="#ch1">Mothers first</a></li><li><a href="#made">What we made</a></li><li><a href="#ch4">Tested by us</a></li></ul></div>
+      <div><h4>Help</h4><ul><li><a href="#order">How to order</a></li><li><button type="button" data-policy>Exchange &amp; Returns</button></li><li>Delivery <span class="tbc">TBC</span></li><li>Contact details <span class="tbc">TBC</span></li></ul></div>
+      <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener">Facebook group</a></li></ul></div>
+    </div>
+    <div class="base"><span>© 2026 SATER · <span lang="ar" style="font-family:var(--ruqaa)">سَاتِر</span></span><span>Design prototype · not a live store</span></div>
+  </div>
+</footer>
+
+<dialog class="pol" id="policy" aria-labelledby="pol-t">
+  <div class="pol-x"><button type="button" data-close>Close</button></div>
+  <div class="pol-in">
+    <p class="label" style="color:var(--clay-ink)">Customer care</p>
+    <h2 id="pol-t">Exchange &amp; Return Policy</h2>
+    <p>At Sater, your comfort and satisfaction are our priority 🤍</p>
+    <p>We offer exchange and return on all products under the following conditions:</p>
+    <ul>
+      <li>Items must be in their original condition, unused, and in the same quality as received.</li>
+      <li>Requests must be made within 7 days from the delivery date.</li>
+      <li>Customers are responsible for return shipping fees.</li>
+      <li>Refunds are processed via InstaPay only.</li>
+    </ul>
+    <h3>Customized Products</h3>
+    <p>Please note that all customized or made-to-measure items (including bed bumpers or any products made in specific sizes) are non-refundable and non-exchangeable.</p>
+    <p>However, exceptions apply only in the following cases:</p>
+    <ul>
+      <li>If the product has a manufacturing defect.</li>
+      <li>If there is a mistake in the size.</li>
+      <li>If there is any fault in the product itself.</li>
+    </ul>
+    <p>In these cases only, we will offer an exchange or return for the customized item.</p>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  if (!calm) root.classList.add('js');
+  document.body.dataset.tone = 'dark';
+
+  // Policy
+  const dlg = document.getElementById('policy');
+  document.querySelectorAll('[data-policy]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); dlg.showModal ? dlg.showModal() : dlg.setAttribute('open', ''); }));
+  dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+
+  // Featured style
+  const sp = document.getElementById('st-ph'), sc = document.getElementById('st-code'), sw = document.getElementById('st-what');
+  document.querySelectorAll('.swatches button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.swatches button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    sp.className = 'ph ' + b.dataset.t; sc.textContent = b.dataset.code; sw.textContent = b.dataset.what;
+  }));
+
+  // Chapter tracking: header tone, chapter name, guide dots, progress
+  const chapters = [...document.querySelectorAll('main > section')];
+  const name = document.getElementById('chap-name'), guide = document.querySelectorAll('.guide a'), bar = document.querySelector('.progress i');
+  const update = () => {
+    const mid = innerHeight * .35;
+    let cur = chapters[0];
+    for (const s of chapters) if (s.getBoundingClientRect().top <= mid) cur = s;
+    const foot = document.querySelector('.foot').getBoundingClientRect().top <= mid;
+    document.body.dataset.tone = foot ? 'dark' : cur.dataset.tone;
+    name.textContent = cur.dataset.name;
+    guide.forEach(a => a.classList.toggle('on', a.dataset.ch === cur.id));
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.setProperty('--p', max > 0 ? (scrollY / max).toFixed(4) : 0);
+  };
+  addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+  addEventListener('resize', update); update();
+
+  // Gentle reveals
+  if (!calm && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  } else root.classList.remove('js');
+
+  // Logo
+  if (!calm) document.querySelectorAll('.logo-anim[data-autoplay]').forEach(el => el.classList.add('play'));
+  document.querySelectorAll('[aria-disabled="true"]').forEach(el => el.addEventListener('click', e => e.preventDefault()));
+})();
+</script>
+
+</body>
+</html>

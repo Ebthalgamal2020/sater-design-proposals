@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>SATER Website Versions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Karla:wght@400;500;600;700&display=swap">
+</head>
+<body>
+<style>
+/* Version overview: one card per direction with real screenshots, a comparison table, the photo shot list and open decisions.
+   Single-theme in SATER colours; every colour is set explicitly. */
+:root {
+  color-scheme: light;
+  --teal: #224E51; --teal-deep: #183D40; --terracotta: #CC8275; --clay: #985446; --blush: #F7CAC7;
+  --paper: #FAF6F0; --card: #FFFFFF; --ink: #2C2320; --muted: #6A5A53; --line: #E6DCD0;
+  --serif: "Newsreader", Georgia, serif; --sans: "Karla", "Segoe UI", system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; line-height: 1.1; text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1180px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+.kicker { font: 700 .75rem var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--clay); }
+
+header.top { background: var(--teal); color: #FFFFFF; padding-block: clamp(2.5rem, 6vw, 4rem); }
+header.top .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.5rem 2rem; align-items: center; }
+header.top .disc { width: 88px; height: 88px; border-radius: 50%; background: var(--teal-deep); display: grid; place-items: center; overflow: hidden; box-shadow: 0 0 0 1px rgba(247,202,199,.35); }
+header.top .disc img { height: 68px; width: auto; }
+header.top h1 { font-size: clamp(2rem, 1.4rem + 2.4vw, 3.2rem); }
+header.top p { color: #D3E0DE; max-width: 46rem; margin-top: .6rem; }
+header.top .kicker { color: var(--blush); }
+
+section { padding-block: clamp(2.5rem, 6vw, 4rem); }
+.sec-h { display: grid; gap: .4rem; margin-bottom: 1.6rem; }
+.sec-h h2 { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); }
+.sec-h p { color: var(--muted); max-width: 44rem; }
+
+.versions { display: grid; gap: 1.2rem; }
+.v { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1rem, 2.5vw, 1.5rem); display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2rem); align-items: start; }
+.shots { display: grid; grid-template-columns: minmax(0, 1fr) 26%; gap: .8rem; align-items: start; }
+.shots img { border-radius: 10px; border: 1px solid var(--line); width: 100%; height: auto; }
+.shots .m { border-radius: 14px; }
+.v-info { display: grid; gap: .8rem; min-width: 0; }
+.v-info h3 { font-size: 1.75rem; }
+.badge { display: inline-block; font: 700 .6875rem var(--sans); letter-spacing: .08em; text-transform: uppercase; padding: .2em .6em; border-radius: 999px; background: var(--blush); color: var(--teal-deep); vertical-align: middle; margin-inline-start: .4rem; }
+.v-info .lead { color: var(--muted); }
+.v-info ul { margin: 0; padding-inline-start: 1.1rem; display: grid; gap: .3rem; font-size: .9375rem; }
+.v-info li::marker { color: var(--terracotta); }
+.acts { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .3rem; }
+.btn { display: inline-flex; align-items: center; gap: .5em; min-height: 46px; padding: 0 1.2em; border-radius: 999px; background: var(--teal); color: #FFFFFF; text-decoration: none; font-weight: 600; }
+.btn:hover { background: var(--teal-deep); }
+.path { font-size: .8125rem; color: var(--muted); overflow-wrap: anywhere; }
+.path code { font-family: ui-monospace, Consolas, monospace; font-size: .8125rem; background: #F3ECE3; padding: .1em .4em; border-radius: 4px; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 1000px; font-size: .9375rem; }
+th, td { text-align: start; vertical-align: top; padding: .8rem .9rem; border-bottom: 1px solid var(--line); }
+thead th { font: 700 .75rem var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--clay); background: #FBF7F2; position: sticky; top: 0; }
+tbody th { font-weight: 600; white-space: nowrap; }
+tbody tr:last-child > * { border-bottom: 0; }
+
+.shotlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .8rem; }
+.shot { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; display: grid; gap: .3rem; }
+.shot b { font: 700 .8125rem var(--sans); letter-spacing: .08em; color: var(--clay); }
+.shot span { font-family: var(--serif); font-size: 1.15rem; }
+.shot small { color: var(--muted); font-size: .875rem; }
+
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.2rem; }
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.3rem 1.4rem; }
+.box h3 { font-size: 1.35rem; margin-bottom: .7rem; }
+.box ul { margin: 0; padding-inline-start: 1.1rem; display: grid; gap: .45rem; }
+.box li::marker { color: var(--terracotta); }
+footer { padding-block: 2rem 3rem; color: var(--muted); font-size: .875rem; }
+
+@media (max-width: 860px) {
+  .v { grid-template-columns: 1fr; }
+  .two { grid-template-columns: 1fr; }
+  header.top .wrap { grid-template-columns: 1fr; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <span class="disc" aria-hidden="true"><img src="v1-classic-chic/assets/logo/badge-160.webp" alt="" width="104" height="160"></span>
+    <div>
+      <p class="kicker">Design prototypes · 10 October 2026</p>
+      <h1>SATER website: six directions</h1>
+      <p>Six complete homepages for the same brand, products and approved copy, each with its own layout, navigation, product browsing, motion and logo reveal. Unconfirmed details are marked TBC, and the photo spaces name the exact SATER photo each one needs.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap" aria-labelledby="versions-t">
+    <div class="sec-h"><p class="kicker">Versions</p><h2 id="versions-t">Open and compare</h2><p>Each link opens the full homepage. Every version works on desktop and phone; the right-hand screenshot is the phone layout.</p></div>
+    <div class="versions">
+      <article class="v">
+        <div class="shots"><img src="overview-assets/v1-desktop.webp" alt="V1 Classic Chic, desktop hero" width="720" height="450" loading="lazy"><img class="m" src="overview-assets/v1-mobile.webp" alt="V1 Classic Chic, phone hero" width="260" height="563" loading="lazy"></div>
+        <div class="v-info">
+          <h3>V1 · Classic Chic</h3>
+          <p class="lead">Timeless and symmetrical: a Didone serif, ivory and teal, photographs in gallery mounts, hairline rules, slow unveils.</p>
+          <ul><li>Teal oval cameo at the centre of the hero, with a slow top-to-bottom logo unveil</li><li>Collection as a classic index; hovering a name changes the framed preview</li><li>Our Story set as a letter with a drop cap</li><li>Footer: cameo medallion on ivory</li></ul>
+          <div class="acts"><a class="btn" href="v1-classic-chic/">Open V1 ↗</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="shots"><img src="overview-assets/v2-desktop.webp" alt="V2 Soft Seams, desktop hero" width="720" height="450" loading="lazy"><img class="m" src="overview-assets/v2-mobile.webp" alt="V2 Soft Seams, phone hero" width="260" height="563" loading="lazy"></div>
+        <div class="v-info">
+          <h3>V2 · Soft Seams <span class="badge">Approved reference</span></h3>
+          <p class="lead">Quilted, padded panels with stitched seams in a tile grid, a rounded bilingual sans, and a measuring tape motif.</p>
+          <ul><li>Visual design unchanged; polish only (see the report)</li><li>Logo: original four-step reveal, kept as approved</li><li>Category rail, cot measuring diagram, policy in fold-out panels</li><li>Footer: scalloped teal edge</li></ul>
+          <div class="acts"><a class="btn" href="v2-soft-seams/">Open V2 ↗</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="shots"><img src="overview-assets/v3-desktop.webp" alt="V3 Modern Premium, desktop hero" width="720" height="450" loading="lazy"><img class="m" src="overview-assets/v3-mobile.webp" alt="V3 Modern Premium, phone hero" width="260" height="563" loading="lazy"></div>
+        <div class="v-info">
+          <h3>V3 · Modern Premium</h3>
+          <p class="lead">Design-led and asymmetric: an oversized grotesque, an editorial grid, depth in the hero, and transitions with a purpose.</p>
+          <ul><li>Logo “focus pull” from blur, set on a teal panel layered over a photo</li><li>Desktop: the collection slides sideways as you scroll down</li><li>Story panels stack over each other; policy opens in a side drawer</li><li>Phone: a fixed bottom bar (Shop · Measure · Story · Order)</li></ul>
+          <div class="acts"><a class="btn" href="v3-modern-premium/">Open V3 ↗</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="shots"><img src="overview-assets/v4-desktop.webp" alt="V4 Gen Z Playful, desktop hero" width="720" height="450" loading="lazy"><img class="m" src="overview-assets/v4-mobile.webp" alt="V4 Gen Z Playful, phone hero" width="260" height="563" loading="lazy"></div>
+        <div class="v-info">
+          <h3>V4 · Gen Z Playful</h3>
+          <p class="lead">Expressive and social: chunky wide type, sticker shapes with ink outlines, a butter ticker. Teal stays the anchor.</p>
+          <ul><li>Logo pops in like a sticker inside a slowly rotating text ring</li><li>Swipeable card deck for the collection (drag, arrows or category chips)</li><li>Our Story told as chat bubbles</li><li>Phone: bottom-sheet menu; footer with a wavy edge</li></ul>
+          <div class="acts"><a class="btn" href="v4-genz-playful/">Open V4 ↗</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="shots"><img src="overview-assets/v5-desktop.webp" alt="V5 The Motherhood Story, desktop opening" width="720" height="450" loading="lazy"><img class="m" src="overview-assets/v5-mobile.webp" alt="V5 The Motherhood Story, phone opening" width="260" height="563" loading="lazy"></div>
+        <div class="v-info">
+          <h3>V5 · The Motherhood Story</h3>
+          <p class="lead">A story in five chapters from the approved text, moving from night (the logo’s teal) through dawn into day.</p>
+          <ul><li>Gentle logo reveal on a night-teal opening, with a soft heartbeat on the heart</li><li>Products arrive at the turning point: “So we decided to create what we wished we had.”</li><li>Chapter guide on desktop, progress line on phones; Shop and Order always visible</li><li>Footer: the original logo on its own exact teal</li></ul>
+          <div class="acts"><a class="btn" href="v5-motherhood-story/">Open V5 ↗</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="shots"><img src="overview-assets/v6-desktop.webp" alt="V6 The SATER Nest, desktop hero" width="720" height="450" loading="lazy"><img class="m" src="overview-assets/v6-mobile.webp" alt="V6 The SATER Nest, phone hero" width="260" height="563" loading="lazy"></div>
+        <div class="v-info">
+          <h3>V6 · The SATER Nest <span class="badge">New · competitor-informed</span></h3>
+          <p class="lead">An editorial shop shaped by a review of four Egyptian baby brands. Images sit in soft “nest rings”, a baby nest seen from above.</p>
+          <ul><li>Category shortcuts, a Shop menu and filter chips</li><li>Real variants only: four bumper styles, oval and round nests</li><li>Enquiry list and a four-step made-to-measure request with validation (prepares a message; nothing is sent)</li><li>Ordering, delivery and returns in one help section; order-help button always available</li><li>Footer: the original logo in a round nest ring</li></ul>
+          <div class="acts"><a class="btn" href="v6-sater-nest/">Open V6 ↗</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="comp-t">
+    <div class="sec-h"><p class="kicker">Competitor review · for V6</p><h2 id="comp-t">What we took, and what we left out</h2><p>Reviewed: My Little World, The Maree Shop, Yoya and Bunny, Luly Baby. Ideas only; no code, copy or designs copied.</p></div>
+    <div class="two">
+      <div class="box"><h3>Used in V6</h3><ul>
+        <li>Founder-led story and a dedicated custom-order route (My Little World)</li>
+        <li>Category shortcuts and a clear Shop menu (Luly Baby, Maree)</li>
+        <li>Variant choices on product cards, plus filter chips (Yoya and Bunny)</li>
+        <li>Delivery and returns stated plainly, with order help always within reach (Luly Baby)</li>
+      </ul></div>
+      <div class="box"><h3>Waiting on SATER</h3><ul>
+        <li>Customer reviews and order counts: only real reviews can be shown</li>
+        <li>Bundles and sets: only if SATER offers them</li>
+        <li>Prices, free-shipping thresholds, cash on delivery, payment icons</li>
+        <li>Arabic/English toggle: every competitor has one; needs approved Arabic copy</li>
+        <li>“Bestseller” and “New” badges: need real sales data</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="cmp-t">
+    <div class="sec-h"><p class="kicker">Side by side</p><h2 id="cmp-t">How the experiences differ</h2></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Comparison table, scroll sideways on small screens">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">V1 Classic Chic</th><th scope="col">V2 Soft Seams</th><th scope="col">V3 Modern Premium</th><th scope="col">V4 Gen Z Playful</th><th scope="col">V5 Motherhood Story</th><th scope="col">V6 SATER Nest</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Hero</th><td>Centred headline, cameo between two framed photos</td><td>Tile grid: message, logo panel, promise, photo</td><td>Huge type beside a layered logo-and-photo stack</td><td>Lowercase headline with stickers and a text ring</td><td>Night opening: logo, first line of the story</td><td>Message beside a nest-ring photo with the logo disc</td></tr>
+          <tr><th scope="row">Navigation</th><td>Centred logo, nav between hairlines; full-screen menu on phones</td><td>Logo centred between two link groups; drawer on phones</td><td>Minimal bar + full-screen menu; bottom bar on phones</td><td>Floating pill bar; bottom sheet on phones</td><td>Chapter guide + progress line; Shop and Order always visible</td><td>Shop menu with category shortcuts; enquiry list icon; side menu on phones</td></tr>
+          <tr><th scope="row">Type</th><td>Bodoni Moda · Jost · Amiri</td><td>Readex Pro</td><td>Bricolage Grotesque · Instrument Sans · Noto Kufi Arabic</td><td>Syne · Figtree · Lalezar</td><td>Newsreader · Karla · Aref Ruqaa</td><td>Gloock · Plus Jakarta Sans · Almarai</td></tr>
+          <tr><th scope="row">Finding products</th><td>Index list with a live preview frame</td><td>Sideways category rail</td><td>Scroll-driven sideways gallery</td><td>Swipeable card deck</td><td>“What we made” within the story</td><td>Category shortcuts, filter chips, variant cards, details panel</td></tr>
+          <tr><th scope="row">Our Story</th><td>A letter with a drop cap</td><td>Sequence of stitched panels</td><td>Stacking panels</td><td>Chat bubbles</td><td>The whole page is the story</td><td>Founder section with a pull quote</td></tr>
+          <tr><th scope="row">Logo reveal</th><td>Slow unveil, top to bottom</td><td>Original four-step reveal (approved)</td><td>Focus pull from blur</td><td>Sticker pop with a floating heart</td><td>Gentle fade with a soft heartbeat</td><td>Nest rings draw in, then the logo settles</td></tr>
+          <tr><th scope="row">Footer logo</th><td>Teal cameo medallion on ivory</td><td>Cut-out logo on teal, scalloped edge</td><td>Round teal disc on deep ink</td><td>Sticker disc with text ring on blush</td><td>Original logo on its own teal</td><td>Original logo in a round nest ring</td></tr>
+          <tr><th scope="row">Return policy</th><td>Printed card pop-up</td><td>Fold-out panels on the page</td><td>Side drawer</td><td>“Fine print” fold-out</td><td>Pop-up</td><td>Help section with ordering, delivery, returns, payment</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="photos-t">
+    <div class="sec-h"><p class="kicker">Photos needed</p><h2 id="photos-t">The SATER photos that fill every version</h2><p>Instagram and Facebook block automated downloads, so no real photos are in place yet. Please share the original files (not screenshots, if possible), named with these codes, for example <code style="font-size:.9em">P1-bumper-in-cot.jpg</code>. Ideally send two different P1 shots so V1 and V2 don’t open with the same image.</p></div>
+    <div class="shotlist">
+      <div class="shot"><b>P1</b><span>Bed bumper in a cot, lifestyle</span><small>Landscape · hero of V1/V2, collection in all</small></div>
+      <div class="shot"><b>P2</b><span>Sponge bumper (سفنج)</span><small>Close-up or in use · featured product</small></div>
+      <div class="shot"><b>P3</b><span>Polygonal bumper (مضلعة)</span><small>Featured product style</small></div>
+      <div class="shot"><b>P4</b><span>Bubbles bumper (بابلز)</span><small>Featured product style</small></div>
+      <div class="shot"><b>P5</b><span>Braided bumper (ضفيرة)</span><small>Featured product style</small></div>
+      <div class="shot"><b>P6</b><span>Oval nest</span><small>Portrait · V1 hero, collections</small></div>
+      <div class="shot"><b>P7</b><span>Round nest</span><small>Collections, V4 hero sticker</small></div>
+      <div class="shot"><b>P8</b><span>Muslin cover</span><small>Collections</small></div>
+      <div class="shot"><b>P9</b><span>Playmat, ideally from above</span><small>Collections, V4 hero sticker</small></div>
+      <div class="shot"><b>P10</b><span>Organiser</span><small>Collections, V4 hero sticker</small></div>
+      <div class="shot"><b>P11</b><span>Product from the “بورط” category</span><small>Collections (plus its English name)</small></div>
+      <div class="shot"><b>P12</b><span>A founder with her baby (optional)</span><small>V5 Chapter I, story sections · only with consent</small></div>
+      <div class="shot"><b>P13</b><span>Fabric and stitching, macro detail</span><small>V3 hero and featured product</small></div>
+      <div class="shot"><b>IG</b><span>4–6 recent Instagram posts</span><small>“From our Instagram” sections (V2, V4)</small></div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="open-t">
+    <div class="sec-h"><p class="kicker">Before launch</p><h2 id="open-t">Still to confirm</h2></div>
+    <div class="two">
+      <div class="box"><h3>Business decisions</h3><ul>
+        <li>Ordering: through WhatsApp/Instagram, or online checkout (and which payment methods)</li>
+        <li>Languages: Arabic only, or Arabic and English</li>
+        <li>Product variants, sizes, fabrics, colours and prices</li>
+        <li>Custom order steps, measuring guide and lead times</li>
+        <li>Delivery areas, fees and timing</li>
+        <li>WhatsApp number, phone, email</li>
+        <li>English name and meaning of the “بورط” category</li>
+        <li>Whether founders appear by name or photo</li>
+      </ul></div>
+      <div class="box"><h3>Assets and setup</h3><ul>
+        <li>Original product and lifestyle photos (list above)</li>
+        <li>Official transparent logo files (SVG or PNG) for light backgrounds</li>
+        <li>Platform, hosting and domain, decided once ordering is settled</li>
+        <li>Approval of new draft lines, for example V3’s “Made by mothers. Tested on our own babies.”</li>
+      </ul></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>All approved copy (Our Story, Exchange &amp; Return Policy) is used word for word in every version.</p>
+</footer>
+
+</body>
+</html>

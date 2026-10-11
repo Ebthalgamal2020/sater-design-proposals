@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../favicon.png">
+<title>SATER Playful</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=Lalezar&display=swap">
+</head>
+<body>
+<style>
+/* V4 Gen Z Playful — sticker shapes with ink outlines and offset shadows, a floating pill nav, a swipeable category deck,
+   the story told as chat bubbles, a butter ticker. Teal stays the anchor; butter is the one supporting colour.
+   Deliberately single-theme: the brand palette is the design, so every colour is set explicitly. */
+:root {
+  color-scheme: light;
+  --teal: #224E51;        /* sampled */
+  --terracotta: #CC8275;  /* sampled */
+  --blush: #F7CAC7;       /* sampled */
+  --brown: #533127;       /* sampled */
+  --ink: #1B2A2B;
+  --cream: #FFF8EF;
+  --butter: #F6D98C;
+  --teal-2: #2F6468;
+  --muted: #4E5A5A;
+
+  --display: "Syne", "Arial Black", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --arabic: "Lalezar", "Segoe UI", sans-serif;
+
+  --s0: 1.0625rem;
+  --s2: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  --s3: clamp(2.2rem, 1.4rem + 3.4vw, 4.2rem);
+  --s5: clamp(2.6rem, 1.2rem + 5vw, 6rem);
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1260px;
+  --r: 22px;
+  --line: 2px solid var(--ink);
+  --pop: 5px 5px 0 var(--ink);
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+html, body { overflow-x: clip; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--body); font-size: var(--s0); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; margin: 0; line-height: .95; letter-spacing: -.02em; text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 3px solid var(--terracotta); outline-offset: 3px; border-radius: 8px; }
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.ar { font-family: var(--arabic); font-weight: 400; letter-spacing: 0; }
+.tbc { display: inline-block; font: 700 .6875rem/1.4 var(--body); letter-spacing: .06em; text-transform: uppercase; background: var(--butter); color: var(--ink); border: 1.5px solid var(--ink); border-radius: 999px; padding: .1em .55em; vertical-align: middle; white-space: nowrap; transform: rotate(-2deg); }
+.pill-label { display: inline-block; font: 700 .8125rem var(--body); letter-spacing: .04em; text-transform: uppercase; background: var(--blush); border: var(--line); border-radius: 999px; padding: .3em .9em; }
+
+/* Chunky buttons that press down */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .6em; min-height: 52px; padding: 0 1.5em; border: var(--line); border-radius: 999px; font: 700 1rem var(--body); text-decoration: none; cursor: pointer; box-shadow: var(--pop); transition: transform .15s ease, box-shadow .15s ease, background-color .2s; }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--ink); }
+.btn:active { transform: translate(4px, 4px); box-shadow: 1px 1px 0 var(--ink); }
+.b-teal { background: var(--teal); color: var(--cream); }
+.b-butter { background: var(--butter); color: var(--ink); }
+.b-cream { background: var(--cream); color: var(--ink); }
+.btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+
+/* Prototype note */
+.note { background: var(--ink); color: var(--cream); font-size: .75rem; padding: .45rem var(--gutter); display: flex; flex-wrap: wrap; gap: .2rem 1rem; justify-content: space-between; }
+
+/* Floating pill nav */
+.nav { position: sticky; top: calc(10px + env(safe-area-inset-top, 0px)); z-index: 40; margin: 10px var(--gutter) 0; }
+.nav-in { max-width: var(--max); margin-inline: auto; display: flex; align-items: center; gap: 1rem; background: var(--cream); border: var(--line); border-radius: 999px; padding: 6px 6px 6px 8px; box-shadow: var(--pop); }
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; margin-inline-end: auto; }
+.brand .disc { width: 48px; height: 48px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; border: var(--line); }
+.brand .disc { overflow: hidden; flex: none; }
+.brand .disc img { height: 35px; width: auto; }
+.brand b { font-family: var(--display); font-weight: 800; font-size: 1.15rem; }
+.nav-links { display: flex; gap: .3rem; list-style: none; margin: 0; padding: 0; }
+.nav-links a { display: block; text-decoration: none; font-weight: 600; padding: .55em 1em; border-radius: 999px; transition: background-color .2s; }
+.nav-links a:hover { background: var(--blush); }
+.nav .btn { min-height: 46px; box-shadow: none; }
+.menu-btn { display: none; min-height: 46px; padding: 0 1.2em; border: var(--line); border-radius: 999px; background: var(--butter); font: 700 .9375rem var(--body); color: var(--ink); cursor: pointer; }
+
+/* Bottom sheet menu */
+.sheet-scrim { position: fixed; inset: 0; z-index: 60; background: rgba(27,42,43,.45); }
+.sheet { position: fixed; z-index: 61; left: 0; right: 0; bottom: 0; background: var(--cream); border-top: var(--line); border-radius: 28px 28px 0 0; padding: 12px var(--gutter) calc(1.5rem + env(safe-area-inset-bottom, 0px)); display: grid; gap: .6rem; animation: sheet-up .45s var(--spring); }
+.sheet[hidden], .sheet-scrim[hidden] { display: none !important; }
+.sheet .grab { width: 44px; height: 5px; border-radius: 5px; background: var(--ink); opacity: .25; justify-self: center; margin-bottom: .4rem; }
+.sheet a, .sheet button.close { display: flex; justify-content: space-between; align-items: center; min-height: 56px; padding: 0 1.2rem; border: var(--line); border-radius: 18px; text-decoration: none; font: 700 1.15rem var(--display); background: var(--cream); color: var(--ink); cursor: pointer; }
+.sheet a:nth-child(2) { background: var(--blush); } .sheet a:nth-child(3) { background: var(--butter); } .sheet a:nth-child(4) { background: #D7E6E3; }
+.sheet button.close { justify-content: center; font-family: var(--body); font-size: 1rem; background: var(--ink); color: var(--cream); }
+@keyframes sheet-up { from { transform: translateY(100%); } }
+
+/* Hero */
+.hero { padding-block: clamp(2.5rem, 6vw, 5rem) clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+.hero-copy { display: grid; gap: 1.5rem; min-width: 0; }
+.hero h1 { font-size: var(--s5); text-transform: lowercase; }
+.hero h1 .hl { position: relative; display: inline-block; color: var(--teal); }
+.hero h1 .hl svg { position: absolute; left: -4%; right: -4%; bottom: -.12em; width: 108%; height: .32em; overflow: visible; }
+.hero h1 .bubble { display: inline-block; background: var(--blush); border: var(--line); border-radius: 999px; padding: 0 .28em .04em; transform: rotate(-3deg); box-shadow: 4px 4px 0 var(--ink); }
+.hero .lede { font-size: 1.2rem; max-width: 30rem; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: .9rem; }
+.hero-art { position: relative; aspect-ratio: 1; min-width: 0; }
+.sticker-logo { position: absolute; inset: 9%; border-radius: 50%; background: var(--teal); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); display: grid; place-items: center; }
+.sticker-logo .logo-anim { width: 44%; }
+.ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 26s linear infinite; }
+.ring text { font: 700 13.5px var(--body); letter-spacing: 3px; text-transform: uppercase; fill: var(--ink); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.float { position: absolute; z-index: 2; width: 30%; border: var(--line); border-radius: 18px; overflow: hidden; box-shadow: var(--pop); background: var(--cream); transition: transform .4s var(--spring); }
+.float .ph { aspect-ratio: 4 / 5; }
+.float.f1 { left: -6%; top: 4%; transform: rotate(-9deg); }
+.float.f2 { right: -2%; bottom: 6%; transform: rotate(8deg); }
+.float.f3 { left: 0; bottom: 4%; transform: rotate(-5deg); }
+.float:hover { transform: rotate(0) scale(1.06); z-index: 3; }
+.hero-art .burst { position: absolute; right: 2%; top: 2%; width: 27%; aspect-ratio: 1; background: var(--butter); border: var(--line); display: grid; place-items: center; text-align: center; font: 800 clamp(.6rem, .45rem + .4vw, .8rem)/1.1 var(--display); z-index: 3; letter-spacing: -.01em; clip-path: polygon(50% 0, 61% 12%, 77% 6%, 80% 22%, 96% 26%, 90% 41%, 100% 54%, 87% 63%, 91% 80%, 74% 82%, 66% 97%, 50% 89%, 34% 97%, 26% 82%, 9% 80%, 13% 63%, 0 54%, 10% 41%, 4% 26%, 20% 22%, 23% 6%, 39% 12%); padding: 18%; transform: rotate(8deg); }
+
+/* Placeholder */
+.ph { position: relative; display: grid; place-items: center; text-align: center; padding: .8rem; background: var(--t, var(--blush)); background-image: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55) 0 18%, transparent 19%), radial-gradient(circle at 75% 70%, rgba(255,255,255,.35) 0 12%, transparent 13%); }
+.ph .in { display: grid; gap: .3rem; justify-items: center; }
+.ph .code { font: 700 .6875rem var(--body); letter-spacing: .06em; text-transform: uppercase; background: var(--cream); border: 1.5px solid var(--ink); border-radius: 999px; padding: .15em .6em; }
+.ph .what { font: 700 .9375rem/1.2 var(--body); background: rgba(255,248,239,.85); border-radius: 8px; padding: .1em .45em; }
+.c1 { --t: #F7CAC7; } .c2 { --t: #F6D98C; } .c3 { --t: #BFD9D3; } .c4 { --t: #E9B8A9; } .c5 { --t: #E8DCC8; } .c6 { --t: #CFE0F0; }
+
+/* Ticker */
+.ticker { background: var(--butter); border-block: var(--line); overflow: hidden; transform: rotate(-1.2deg); margin-block: 1rem; }
+.ticker-track { display: flex; width: max-content; gap: 2.2rem; padding: .9rem 0; animation: slide 30s linear infinite; }
+.ticker span { display: inline-flex; align-items: center; gap: .8rem; font: 800 clamp(1.2rem, 1rem + 1vw, 1.8rem) var(--display); white-space: nowrap; text-transform: lowercase; }
+.ticker .ar { font-size: 1.15em; color: var(--teal); }
+.ticker i { width: 14px; height: 14px; background: var(--terracotta); border: 2px solid var(--ink); border-radius: 50%; display: inline-block; }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* Section heads */
+.sec { padding-block: clamp(4rem, 8vw, 7rem); }
+.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.head h2 { font-size: var(--s3); text-transform: lowercase; }
+.head h2 em { font-style: normal; color: var(--teal); }
+
+/* Swipe deck */
+.discover { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.deck { position: relative; aspect-ratio: 4 / 4.6; max-width: 480px; width: 100%; justify-self: center; touch-action: pan-y; user-select: none; }
+.card { position: absolute; inset: 0; border: var(--line); border-radius: 26px; background: var(--cream); box-shadow: var(--pop); overflow: hidden; display: grid; grid-template-rows: 1fr auto; transition: transform .5s var(--spring), opacity .4s; cursor: grab; }
+.card:active { cursor: grabbing; }
+.card .ph { border-bottom: var(--line); }
+.card .meta { padding: 1rem 1.2rem 1.1rem; display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; }
+.card h3 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); text-transform: lowercase; }
+.card .ar { font-size: 1.35rem; color: var(--teal); }
+.card[data-pos="0"] { z-index: 5; transform: none; }
+.card[data-pos="1"] { z-index: 4; transform: translate(14px, 10px) rotate(4deg); }
+.card[data-pos="2"] { z-index: 3; transform: translate(-12px, 16px) rotate(-5deg); }
+.card[data-pos="3"] { z-index: 2; transform: translate(0, 22px) rotate(1deg) scale(.97); }
+.card[data-pos="hide"] { z-index: 1; transform: translate(0, 26px) scale(.94); opacity: 0; }
+.card.fly-l { transform: translate(-130%, -6%) rotate(-18deg) !important; opacity: 0; }
+.card.fly-r { transform: translate(130%, -6%) rotate(18deg) !important; opacity: 0; }
+.card.drag { transition: none; }
+.deck-info { display: grid; gap: 1.2rem; min-width: 0; }
+.deck-info .count { font: 800 1rem var(--display); font-variant-numeric: tabular-nums; }
+.deck-info h3 { font-size: var(--s3); text-transform: lowercase; }
+.deck-info p.desc { font-size: 1.15rem; }
+.deck-ctrl { display: flex; gap: .7rem; flex-wrap: wrap; }
+.deck-ctrl .round { width: 56px; height: 56px; padding: 0; border-radius: 50%; font-size: 1.3rem; }
+.chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+.chips button { min-height: 40px; padding: 0 .9em; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--cream); font: 600 .875rem var(--body); color: var(--ink); cursor: pointer; transition: background-color .2s, transform .2s var(--spring); }
+.chips button:hover { transform: translateY(-2px); }
+.chips button[aria-pressed="true"] { background: var(--teal); color: var(--cream); }
+
+/* Featured: build-your-bumper */
+.build { background: var(--teal); color: var(--cream); border: var(--line); border-radius: 36px; box-shadow: 8px 8px 0 var(--ink); padding: clamp(1.6rem, 4vw, 3.2rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.build h2 { font-size: var(--s3); text-transform: lowercase; }
+.build .pill-label { color: var(--ink); }
+.build .tbc { transform: none; }
+.build-media { border: var(--line); border-radius: 26px; overflow: hidden; background: var(--cream); color: var(--ink); }
+.build-media .ph { aspect-ratio: 5 / 4; }
+.styles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
+.styles button { min-height: 64px; border: var(--line); border-radius: 18px; background: var(--cream); color: var(--ink); font: 800 1.1rem var(--display); cursor: pointer; display: grid; place-items: center; line-height: 1.1; box-shadow: 3px 3px 0 var(--ink); transition: transform .2s var(--spring), background-color .2s; }
+.styles button .ar { font-size: 1rem; color: var(--teal); }
+.styles button[aria-pressed="true"] { background: var(--butter); transform: rotate(-2deg) scale(1.03); }
+.price { font: 800 1.8rem var(--display); display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.fine { font-size: .9375rem; color: #D8E5E3; }
+.fine button { all: unset; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; color: var(--cream); font-weight: 700; padding-block: 11px; margin-block: -11px; }
+
+/* Story as chat bubbles */
+.chat { max-width: 760px; margin-inline: auto; display: grid; gap: .9rem; }
+.who { display: flex; align-items: center; gap: .6rem; font-weight: 700; font-size: .9375rem; margin-bottom: .4rem; }
+.who .disc { width: 40px; height: 40px; border-radius: 50%; background: var(--teal); border: var(--line); display: grid; place-items: center; }
+.who .disc { overflow: hidden; flex: none; }
+.who .disc img { height: 29px; width: auto; }
+.msg { justify-self: start; max-width: min(88%, 560px); background: #FFFFFF; border: var(--line); border-radius: 24px 24px 24px 6px; padding: .9rem 1.2rem; font-size: 1.15rem; box-shadow: 4px 4px 0 var(--ink); }
+.msg.alt { background: var(--blush); }
+.msg.big { background: var(--teal); color: var(--cream); font: 800 clamp(1.3rem, 1rem + 1.4vw, 2rem)/1.15 var(--display); }
+.msg.goal { background: var(--butter); }
+.typing { justify-self: start; display: inline-flex; gap: 5px; padding: .8rem 1rem; background: #FFFFFF; border: var(--line); border-radius: 20px; }
+.typing i { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: dot 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 0%, 60%, 100% { transform: none; opacity: .4; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+/* Instagram polaroids */
+.pola { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.8rem, 2vw, 1.6rem); }
+.pola a { display: block; background: #FFFFFF; border: var(--line); border-radius: 8px; padding: 8px 8px 30px; box-shadow: 4px 4px 0 var(--ink); text-decoration: none; transition: transform .35s var(--spring); }
+.pola a:nth-child(odd) { transform: rotate(-3deg); } .pola a:nth-child(even) { transform: rotate(2.5deg) translateY(10px); }
+.pola a:hover { transform: rotate(0) scale(1.05); }
+.pola .ph { aspect-ratio: 1; border: 1.5px solid var(--ink); border-radius: 4px; }
+
+/* Order tiles */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.tile { border: var(--line); border-radius: 24px; padding: 1.4rem; display: grid; gap: .5rem; align-content: start; min-height: 190px; text-decoration: none; box-shadow: var(--pop); transition: transform .25s var(--spring), box-shadow .25s; min-width: 0; }
+a.tile:hover { transform: translate(-3px, -3px) rotate(-1deg); box-shadow: 8px 8px 0 var(--ink); }
+.tile b { font: 800 1.5rem var(--display); text-transform: lowercase; }
+.tile span { font-size: .9375rem; overflow-wrap: anywhere; }
+.tile .go { font: 800 1.6rem var(--display); margin-top: auto; }
+.tile.t-ig { background: var(--blush); } .tile.t-fb { background: #D7E6E3; } .tile.t-wa { background: var(--butter); } .tile.t-web { background: #FFFFFF; }
+.custom-strip { margin-top: 1.4rem; border: var(--line); border-radius: 24px; padding: 1.4rem 1.6rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; background: var(--cream); box-shadow: var(--pop); }
+.custom-strip b { font: 800 clamp(1.2rem, 1rem + 1vw, 1.7rem) var(--display); text-transform: lowercase; }
+
+/* Policy: the fine print, verbatim */
+.fineprint { border: var(--line); border-radius: 28px; background: #FFFFFF; box-shadow: var(--pop); overflow: hidden; }
+.fineprint summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; min-height: 64px; font: 800 1.3rem var(--display); text-transform: lowercase; }
+.fineprint summary::-webkit-details-marker { display: none; }
+.fineprint summary::after { content: "+"; width: 38px; height: 38px; flex: none; border: var(--line); border-radius: 50%; display: grid; place-items: center; background: var(--butter); font-size: 1.4rem; transition: transform .3s var(--spring); }
+.fineprint[open] summary::after { transform: rotate(45deg); }
+.fineprint .body { padding: 0 1.5rem 1.5rem; display: grid; gap: .8rem; border-top: 2px dashed rgba(27,42,43,.3); padding-top: 1.2rem; }
+.fineprint h4 { margin: .4rem 0 0; font: 800 1.15rem var(--display); }
+.fineprint ul { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: .4rem; }
+.fineprint li::marker { color: var(--terracotta); }
+
+/* Footer */
+.foot { position: relative; background: var(--blush); border-top: var(--line); margin-top: 60px; padding-block: clamp(3.5rem, 7vw, 5rem) 2rem; }
+.foot .wave { position: absolute; left: 0; right: 0; top: -38px; width: 100%; height: 40px; display: block; }
+.foot-grid { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.foot-stick { position: relative; width: clamp(170px, 18vw, 230px); aspect-ratio: 1; }
+.foot-stick .sticker-logo { inset: 12%; box-shadow: 5px 5px 0 var(--ink); }
+.foot-stick .logo-anim { width: 46%; }
+.foot-stick .ring text { font-size: 12.5px; }
+.foot h2 { font-size: var(--s3); text-transform: lowercase; }
+.foot-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem; margin-top: 2rem; }
+.foot h4 { margin: 0 0 .7rem; font: 800 .9375rem var(--display); text-transform: lowercase; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
+.foot a, .foot li button { text-decoration: none; font-weight: 600; background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; }
+.foot a:hover, .foot li button:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.foot .base { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 2px dashed rgba(27,42,43,.35); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 2rem; font-size: .875rem; }
+
+/* Logo (official artwork in four layers) — V4 reveal: a sticker pop */
+.logo-anim { display: grid; aspect-ratio: 516 / 792; max-width: 100%; }
+.logo-anim img { grid-area: 1 / 1; width: 100%; height: auto; }
+.logo-anim .l-heart { transform-origin: 85% 32%; }
+.logo-anim.play .l-art { animation: z-pop .8s var(--spring) both; }
+.logo-anim.play .l-heart { animation: z-heart .7s .55s var(--spring) both, z-float 1.6s 1.3s ease-in-out 2; }
+.logo-anim.play .l-ar { animation: z-write .7s .4s cubic-bezier(.6,0,.3,1) both; }
+.logo-anim.play .l-word { animation: z-up .6s .85s var(--spring) both; }
+@keyframes z-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes z-heart { from { opacity: 0; transform: translateY(30px) scale(0); } to { opacity: 1; transform: none; } }
+@keyframes z-float { 50% { transform: translateY(-8px) scale(1.12); } }
+@keyframes z-write { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes z-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* Pop-in reveals */
+.js .rv { opacity: 0; transform: translateY(24px) scale(.97); transition: opacity .5s ease, transform .6s var(--spring); }
+.js .rv.in { opacity: 1; transform: none; }
+
+
+/* Comfortable tap targets on touch screens */
+@media (max-width: 960px) {
+  footer li > a, footer li > button { display: inline-flex; align-items: center; min-height: 44px; }
+  footer ul { gap: 0 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .rv { opacity: 1; transform: none; }
+  .typing { display: none; }
+}
+
+@media (max-width: 960px) {
+  .nav-links, .nav .btn { display: none; }
+  .menu-btn { display: block; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-art { max-width: 460px; width: 100%; justify-self: center; }
+  .discover { grid-template-columns: 1fr; }
+  .build { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: 1fr 1fr; }
+  .pola { grid-template-columns: 1fr 1fr; }
+  .foot-grid { grid-template-columns: 1fr; justify-items: start; }
+  .foot-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .note .hide-sm { display: none; }
+  .brand b { display: none; }
+  .hero .actions .btn { flex: 1 1 100%; }
+  .float { width: 30%; }
+  .float.f1 { left: -2%; } .float.f2 { right: 0; }
+  .hero h1 { font-size: clamp(2.4rem, 1rem + 7vw, 3.4rem); }
+  .tiles { grid-template-columns: 1fr; }
+  .tile { min-height: 0; }
+  .styles button { font-size: .9rem; letter-spacing: -.01em; }
+  .pola a:nth-child(n+3) { display: none; }
+}
+</style>
+
+<div class="note" role="note"><span>Design prototype · <strong>V4 Gen Z Playful</strong></span><span class="hide-sm">Yellow tags = awaiting confirmation <span class="tbc">TBC</span> · photo spaces name the shot needed</span></div>
+
+<header class="nav" id="top">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="SATER home"><span class="disc" aria-hidden="true"><img src="assets/logo/badge-160.webp" alt="" width="104" height="160"></span><b>sater</b></a>
+    <ul class="nav-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#build">Custom</a></li>
+      <li><a href="#story">Story</a></li>
+      <li><a href="#returns">Returns</a></li>
+    </ul>
+    <a class="btn b-butter" href="#order">Order</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+  </div>
+</header>
+<div class="sheet-scrim" hidden data-close></div>
+<nav class="sheet" id="sheet" hidden aria-label="Menu">
+  <span class="grab" aria-hidden="true"></span>
+  <a href="#shop">Shop <span aria-hidden="true">→</span></a>
+  <a href="#build">Custom bumper <span aria-hidden="true">→</span></a>
+  <a href="#story">Our story <span aria-hidden="true">→</span></a>
+  <a href="#order">How to order <span aria-hidden="true">→</span></a>
+  <a href="#returns">Returns <span aria-hidden="true">→</span></a>
+  <button class="close" type="button" data-close>Close</button>
+</nav>
+
+<main>
+  <section class="wrap hero" aria-labelledby="h1">
+    <div class="hero-copy">
+      <span class="pill-label" style="justify-self:start">made by mothers</span>
+      <h1 id="h1">from moms <span style="white-space:nowrap"><span class="bubble">like you</span>,</span> with <span class="hl">love<svg viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true"><path d="M3 20 C 40 6, 80 30, 120 14 S 180 8, 197 18" fill="none" stroke="#CC8275" stroke-width="7" stroke-linecap="round"/></svg></span> &amp; care.</h1>
+      <p class="lede">Baby essentials we designed for the real problems we faced as moms. Every one tested by us, on our own babies.</p>
+      <div class="actions">
+        <a class="btn b-teal" href="#shop">Find your favourite <span aria-hidden="true">→</span></a>
+        <a class="btn b-cream" href="#story">Meet the moms</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="float f1"><div class="ph c2"><div class="in"><span class="code">P9</span><span class="what">Playmat</span></div></div></div>
+      <div class="float f2"><div class="ph c3"><div class="in"><span class="code">P7</span><span class="what">Round nest</span></div></div></div>
+      <div class="sticker-logo">
+        <div class="logo-anim" data-autoplay role="img" aria-label="SATER logo: a mother holding her sleeping baby, with the Arabic and English wordmark">
+          <img class="l-art" src="assets/logo/art.webp" alt="" width="516" height="792">
+          <img class="l-heart" src="assets/logo/heart.webp" alt="" width="516" height="792">
+          <img class="l-ar" src="assets/logo/arabic.webp" alt="" width="516" height="792">
+          <img class="l-word" src="assets/logo/wordmark.webp" alt="" width="516" height="792">
+        </div>
+      </div>
+      <svg class="ring" viewBox="0 0 300 300" aria-hidden="true"><defs><path id="ring-a" d="M150,150 m-138,0 a138,138 0 1,1 276,0 a138,138 0 1,1 -276,0"/></defs><text><textPath href="#ring-a">made by mothers • tested on our own babies • made by mothers • tested on our own babies •</textPath></text></svg>
+      <div class="float f3"><div class="ph c4"><div class="in"><span class="code">P10</span><span class="what">Organiser</span></div></div></div>
+      <div class="burst" aria-hidden="true">made to<br>measure</div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>bed bumpers <span class="ar">جوانب</span><i></i></span><span>baby nests <span class="ar">نيست</span><i></i></span><span>muslin covers<i></i></span><span>playmats <span class="ar">بلاي مات</span><i></i></span><span>organisers <span class="ar">منظمات</span><i></i></span><span>made to measure<i></i></span>
+      <span>bed bumpers <span class="ar">جوانب</span><i></i></span><span>baby nests <span class="ar">نيست</span><i></i></span><span>muslin covers<i></i></span><span>playmats <span class="ar">بلاي مات</span><i></i></span><span>organisers <span class="ar">منظمات</span><i></i></span><span>made to measure<i></i></span>
+    </div>
+  </div>
+
+  <section class="wrap sec" id="shop" aria-labelledby="shop-t">
+    <div class="head"><h2 id="shop-t">swipe the <em>collection</em></h2><p>Drag a card, use the arrows, or tap a category.</p></div>
+    <div class="discover">
+      <div class="deck" id="deck" aria-hidden="true"></div>
+      <div class="deck-info" aria-live="polite">
+        <p class="count" id="d-count">1 / 7</p>
+        <h3 id="d-name">bed bumpers</h3>
+        <p class="ar" id="d-ar" lang="ar" style="font-size:1.6rem;color:var(--teal)">جوانب</p>
+        <p class="desc" id="d-desc">Four styles: sponge, polygonal, bubbles and braided. Made to measure.</p>
+        <div class="deck-ctrl">
+          <button class="btn b-cream round" type="button" id="d-prev" aria-label="Previous category">←</button>
+          <button class="btn b-cream round" type="button" id="d-next" aria-label="Next category">→</button>
+          <a class="btn b-teal" href="#order" id="d-ask">Ask about this</a>
+        </div>
+        <div class="chips" id="d-chips" role="group" aria-label="Jump to a category"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="build" aria-labelledby="build-t">
+    <div class="build rv">
+      <div class="build-media"><div class="ph c1" id="b-ph"><div class="in"><span class="code" id="b-code">P2</span><span class="what" id="b-what">Sponge bumper in a cot</span></div></div></div>
+      <div style="display:grid;gap:1.2rem">
+        <span class="pill-label" style="justify-self:start">custom · made to measure</span>
+        <h2 id="build-t">pick your bumper style</h2>
+        <div class="styles" role="group" aria-label="Style">
+          <button type="button" aria-pressed="true" data-code="P2" data-what="Sponge bumper in a cot" data-c="c1">sponge <span class="ar" lang="ar">سفنج</span></button>
+          <button type="button" aria-pressed="false" data-code="P3" data-what="Polygonal bumper in a cot" data-c="c3">polygonal <span class="ar" lang="ar">مضلعة</span></button>
+          <button type="button" aria-pressed="false" data-code="P4" data-what="Bubbles bumper in a cot" data-c="c2">bubbles <span class="ar" lang="ar">بابلز</span></button>
+          <button type="button" aria-pressed="false" data-code="P5" data-what="Braided bumper in a cot" data-c="c4">braided <span class="ar" lang="ar">ضفيرة</span></button>
+        </div>
+        <p class="price">EGP — <span class="tbc">price TBC</span></p>
+        <p class="fine">Made to your cot’s size. Colours, measuring guide and lead time <span class="tbc">TBC</span>. Made-to-measure items can only be exchanged or returned for a defect, a size mistake or a product fault. <button type="button" data-open-returns>Read the policy</button></p>
+        <a class="btn b-butter" href="#order" style="justify-self:start">Request this bumper <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="story" aria-labelledby="story-t">
+    <div class="head" style="justify-content:center;text-align:center"><h2 id="story-t">Our Story 🤍</h2></div>
+    <div class="chat">
+      <div class="who"><span class="disc" aria-hidden="true"><img src="assets/logo/badge-160.webp" alt="" width="104" height="160"></span>the moms behind sater</div>
+      <p class="msg rv">Sater started from a real experience… not just an idea.</p>
+      <p class="msg alt rv">We are mothers first.<br>We’ve been through the same journey — the worries, the small details, and the constant need to keep our babies safe and comfortable.</p>
+      <p class="msg rv">We tried so many products…<br>Some looked nice, but didn’t really work.<br>Some made things harder instead of easier.</p>
+      <p class="msg big rv">So we decided to create what we wished we had.</p>
+      <p class="msg alt rv">Every product at Sater is tested by us, on our own babies.<br>Designed to solve real problems we faced as moms.</p>
+      <p class="msg goal rv">Our goal is simple:<br>To make motherhood a little easier…<br>And a lot more comfortable for both mom and baby 👶🏻✨</p>
+      <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
+  </section>
+
+  <section class="wrap sec" style="padding-top:0" aria-labelledby="ig-t">
+    <div class="head"><h2 id="ig-t">10K+ moms <em>follow along</em></h2><a class="btn b-cream" href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener">@saterr1 ↗</a></div>
+    <div class="pola">
+      <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph c1"><div class="in"><span class="code">Instagram</span></div></div></a>
+      <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph c3"><div class="in"><span class="code">Instagram</span></div></div></a>
+      <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph c2"><div class="in"><span class="code">Instagram</span></div></div></a>
+      <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph c4"><div class="in"><span class="code">Instagram</span></div></div></a>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="order" style="padding-top:0" aria-labelledby="order-t">
+    <div class="head"><h2 id="order-t">how to <em>order</em></h2><p>Ordering on the website isn’t set up yet. Reach us here for now.</p></div>
+    <div class="tiles">
+      <a class="tile t-ig rv" href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener"><b>instagram</b><span>DM @saterr1</span><span class="go" aria-hidden="true">↗</span></a>
+      <a class="tile t-fb rv" href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener"><b>facebook</b><span>Join the SATER group</span><span class="go" aria-hidden="true">↗</span></a>
+      <div class="tile t-wa rv"><b>whatsapp</b><span>Number coming soon</span><span class="go"><span class="tbc">TBC</span></span></div>
+      <div class="tile t-web rv"><b>order online</b><span>Only if website checkout is approved</span><span class="go"><span class="tbc">pending</span></span></div>
+    </div>
+    <div class="custom-strip rv"><b>need a bumper in your cot’s exact size?</b><span>Request steps <span class="tbc">TBC</span></span><a class="btn b-teal" href="#order" aria-disabled="true" title="The custom order page comes in a later stage">Start a request</a></div>
+  </section>
+
+  <section class="wrap" id="returns" style="padding-bottom:2rem" aria-label="Exchange and Return Policy">
+    <details class="fineprint">
+      <summary>exchange &amp; return policy</summary>
+      <div class="body">
+        <p>At Sater, your comfort and satisfaction are our priority 🤍</p>
+        <p>We offer exchange and return on all products under the following conditions:</p>
+        <ul>
+          <li>Items must be in their original condition, unused, and in the same quality as received.</li>
+          <li>Requests must be made within 7 days from the delivery date.</li>
+          <li>Customers are responsible for return shipping fees.</li>
+          <li>Refunds are processed via InstaPay only.</li>
+        </ul>
+        <h4>Customized Products</h4>
+        <p>Please note that all customized or made-to-measure items (including bed bumpers or any products made in specific sizes) are non-refundable and non-exchangeable.</p>
+        <p>However, exceptions apply only in the following cases:</p>
+        <ul>
+          <li>If the product has a manufacturing defect.</li>
+          <li>If there is a mistake in the size.</li>
+          <li>If there is any fault in the product itself.</li>
+        </ul>
+        <p>In these cases only, we will offer an exchange or return for the customized item.</p>
+      </div>
+    </details>
+  </section>
+</main>
+
+<footer class="foot">
+  <svg class="wave" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 V22 C 120 0, 240 0, 360 22 S 600 44, 720 22 S 960 0, 1080 22 S 1320 44, 1440 22 V40 Z" fill="#F7CAC7" stroke="#1B2A2B" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-stick">
+        <div class="sticker-logo">
+          <div class="logo-anim" data-inview role="img" aria-label="SATER logo">
+            <img class="l-art" src="assets/logo/art.webp" alt="" width="516" height="792" loading="lazy">
+            <img class="l-heart" src="assets/logo/heart.webp" alt="" width="516" height="792" loading="lazy">
+            <img class="l-ar" src="assets/logo/arabic.webp" alt="" width="516" height="792" loading="lazy">
+            <img class="l-word" src="assets/logo/wordmark.webp" alt="" width="516" height="792" loading="lazy">
+          </div>
+        </div>
+        <svg class="ring" viewBox="0 0 300 300" aria-hidden="true"><defs><path id="ring-b" d="M150,150 m-132,0 a132,132 0 1,1 264,0 a132,132 0 1,1 -264,0"/></defs><text><textPath href="#ring-b">from moms like you • with love and care • from moms like you • with love and care •</textPath></text></svg>
+      </div>
+      <div>
+        <h2>made with love &amp; care, by moms.</h2>
+        <div class="foot-cols">
+          <div><h4>shop</h4><ul><li><a href="#shop">Bed bumpers</a></li><li><a href="#shop">Nests</a></li><li><a href="#shop">Muslin covers</a></li><li><a href="#shop">Playmats</a></li><li><a href="#shop">Organisers</a></li></ul></div>
+          <div><h4>help</h4><ul><li><a href="#order">How to order</a></li><li><a href="#build">Custom bumpers</a></li><li><button type="button" data-open-returns>Returns</button></li><li>Delivery <span class="tbc">TBC</span></li></ul></div>
+          <div><h4>follow</h4><ul><li><a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener">Facebook group</a></li></ul></div>
+          <div><h4>contact</h4><p style="font-size:.9375rem">Phone, WhatsApp, email <span class="tbc">TBC</span></p></div>
+        </div>
+      </div>
+    </div>
+    <div class="base"><span>© 2026 SATER · <span class="ar" lang="ar">سَاتِر</span></span><span>Design prototype · not a live store</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Bottom-sheet menu
+  const sheet = document.getElementById('sheet'), scrim = document.querySelector('.sheet-scrim'), mb = document.querySelector('.menu-btn');
+  const setSheet = open => { sheet.hidden = scrim.hidden = !open; mb.setAttribute('aria-expanded', String(open)); document.body.style.overflow = open ? 'hidden' : ''; if (open) sheet.querySelector('a').focus(); };
+  mb.addEventListener('click', () => setSheet(true));
+  [sheet, scrim].forEach(el => el.addEventListener('click', e => { if (e.target.closest('a, [data-close]')) setSheet(false); }));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) { setSheet(false); mb.focus(); } });
+
+  // Returns: open the fine print when linked
+  const fp = document.querySelector('.fineprint');
+  const openReturns = () => { fp.open = true; document.getElementById('returns').scrollIntoView({ behavior: calm ? 'auto' : 'smooth' }); };
+  document.querySelectorAll('[data-open-returns], a[href="#returns"]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); setSheet(false); openReturns(); }));
+
+  // Swipe deck
+  const cats = [
+    { n: 'bed bumpers', ar: 'جوانب', d: 'Four styles: sponge, polygonal, bubbles and braided. Made to measure.', p: 'P1', w: 'Bed bumper in a cot', c: 'c1' },
+    { n: 'oval nest', ar: 'نيست بيضاوي', d: 'Details to be confirmed.', p: 'P6', w: 'Oval nest', c: 'c3' },
+    { n: 'round nest', ar: 'نيست دائري', d: 'Details to be confirmed.', p: 'P7', w: 'Round nest', c: 'c2' },
+    { n: 'muslin covers', ar: '', d: 'Details to be confirmed.', p: 'P8', w: 'Muslin cover', c: 'c5' },
+    { n: 'playmats', ar: 'بلاي مات', d: 'Details to be confirmed.', p: 'P9', w: 'Playmat', c: 'c4' },
+    { n: 'organisers', ar: 'منظمات', d: 'Details to be confirmed.', p: 'P10', w: 'Organiser', c: 'c6' },
+    { n: 'بورط', ar: '', d: 'English name and details to be confirmed.', p: 'P11', w: 'Product to confirm', c: 'c1' }
+  ];
+  const deck = document.getElementById('deck'), chips = document.getElementById('d-chips');
+  const cards = cats.map((c, i) => {
+    const el = document.createElement('div'); el.className = 'card';
+    el.innerHTML = `<div class="ph ${c.c}"><div class="in"><span class="code">Photo ${c.p}</span><span class="what">${c.w}</span></div></div><div class="meta"><h3${/[؀-ۿ]/.test(c.n) ? ' class="ar" lang="ar"' : ''}>${c.n}</h3><span class="ar" lang="ar">${c.ar}</span></div>`;
+    deck.appendChild(el); return el;
+  });
+  cats.forEach((c, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = c.n; if (/[؀-ۿ]/.test(c.n)) { b.lang = 'ar'; b.className = 'ar'; } b.addEventListener('click', () => go(i)); chips.appendChild(b); });
+  let cur = 0;
+  const render = () => {
+    cards.forEach((el, i) => { const pos = (i - cur + cats.length) % cats.length; el.dataset.pos = pos < 4 ? pos : 'hide'; el.classList.remove('fly-l', 'fly-r'); el.style.transform = ''; });
+    const c = cats[cur];
+    document.getElementById('d-count').textContent = `${cur + 1} / ${cats.length}`;
+    const nm = document.getElementById('d-name'); nm.textContent = c.n; nm.classList.toggle('ar', /[؀-ۿ]/.test(c.n));
+    document.getElementById('d-ar').textContent = c.ar;
+    document.getElementById('d-desc').textContent = c.d;
+    [...chips.children].forEach((b, i) => b.setAttribute('aria-pressed', String(i === cur)));
+  };
+  const go = (i, dir) => {
+    const top = cards[cur];
+    if (!calm && dir) { top.classList.add(dir < 0 ? 'fly-l' : 'fly-r'); setTimeout(() => { cur = (i + cats.length) % cats.length; render(); }, 260); }
+    else { cur = (i + cats.length) % cats.length; render(); }
+  };
+  document.getElementById('d-next').addEventListener('click', () => go(cur + 1, -1));
+  document.getElementById('d-prev').addEventListener('click', () => go(cur - 1, 1));
+  // drag / swipe the top card
+  let sx = null, dx = 0, el = null;
+  deck.addEventListener('pointerdown', e => { el = e.target.closest('.card'); if (!el || el.dataset.pos !== '0') { el = null; return; } sx = e.clientX; dx = 0; el.classList.add('drag'); el.setPointerCapture(e.pointerId); });
+  deck.addEventListener('pointermove', e => { if (!el) return; dx = e.clientX - sx; el.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`; });
+  const end = () => { if (!el) return; el.classList.remove('drag'); const d = dx; el.style.transform = ''; el = null; if (Math.abs(d) > 80) go(d < 0 ? cur + 1 : cur - 1, d < 0 ? -1 : 1); };
+  deck.addEventListener('pointerup', end); deck.addEventListener('pointercancel', end);
+  render();
+
+  // Bumper style picker
+  const bph = document.getElementById('b-ph'), bc = document.getElementById('b-code'), bw = document.getElementById('b-what');
+  document.querySelectorAll('.styles button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.styles button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    bph.className = 'ph ' + b.dataset.c; bc.textContent = b.dataset.code; bw.textContent = b.dataset.what;
+  }));
+
+  // Pop-in reveals
+  if (!calm && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('js');
+    const io = new IntersectionObserver(es => es.forEach((en, k) => { if (en.isIntersecting) { en.target.style.transitionDelay = (k * 70) + 'ms'; en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.rv').forEach(x => io.observe(x));
+  }
+
+  // Logo
+  const play = x => { x.classList.remove('play'); void x.offsetWidth; x.classList.add('play'); };
+  if (!calm) {
+    document.querySelectorAll('.logo-anim[data-autoplay]').forEach(x => { play(x); x.closest('.sticker-logo').addEventListener('click', () => play(x)); });
+    if ('IntersectionObserver' in window) {
+      const lo = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { play(en.target); lo.unobserve(en.target); } }), { threshold: .2 });
+      document.querySelectorAll('.logo-anim[data-inview]').forEach(x => lo.observe(x));
+    }
+  }
+  document.querySelectorAll('[aria-disabled="true"]').forEach(x => x.addEventListener('click', e => e.preventDefault()));
+})();
+</script>
+
+</body>
+</html>

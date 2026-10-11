@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../favicon.png">
+<title>SATER Modern Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600&family=Instrument+Sans:wght@400;500;600&family=Noto+Kufi+Arabic:wght@400;500&display=swap">
+</head>
+<body>
+<style>
+/* V3 Modern Premium — asymmetric 12-column editorial grid, oversized grotesque, a layered hero with depth,
+   a scroll-driven horizontal gallery, stacking story panels, and a bottom dock on mobile.
+   Deliberately single-theme: the brand palette is the design, so every colour is set explicitly. */
+:root {
+  color-scheme: light;
+  --teal: #224E51;        /* sampled */
+  --terracotta: #CC8275;  /* sampled */
+  --blush: #F7CAC7;       /* sampled */
+  --brown: #533127;       /* sampled */
+  --ink: #0F2B2D;
+  --paper: #F1EEE8;
+  --paper-2: #E7E2D9;
+  --muted: #56605F;
+  --rule: rgba(15,43,45,.16);
+  --on-ink: #C8D4D2;
+  --clay-ink: #985446;
+
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --arabic: "Noto Kufi Arabic", "Segoe UI", sans-serif;
+
+  --s-1: .8125rem; --s0: 1rem;
+  --s2: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem);
+  --s3: clamp(2.3rem, 1.4rem + 3.4vw, 4.4rem);
+  --s5: clamp(3.2rem, 1.4rem + 7.4vw, 8.6rem);
+  --gutter: clamp(16px, 3vw, 44px);
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --bar: 72px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--bar) + 16px); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: var(--s0); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; line-height: .96; letter-spacing: -.035em; text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; border-radius: 4px; }
+.g { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); padding-inline: var(--gutter); }
+.ar { font-family: var(--arabic); font-weight: 400; }
+.tag { font-size: var(--s-1); font-weight: 500; letter-spacing: .02em; color: var(--muted); }
+.tag::before { content: "("; } .tag::after { content: ")"; }
+.tbc { display: inline-block; font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); background: var(--blush); border-radius: 3px; padding: .15em .45em; vertical-align: middle; white-space: nowrap; }
+.dark .tbc { background: rgba(247,202,199,.2); color: var(--blush); }
+
+.btn { display: inline-flex; align-items: center; gap: .7em; min-height: 48px; padding: 0 1.4em; border-radius: 999px; font: 500 .9375rem var(--body); text-decoration: none; border: 1px solid var(--ink); cursor: pointer; transition: background-color .4s var(--ease), color .4s var(--ease); }
+.btn-ink { background: var(--ink); color: var(--paper); }
+.btn-ink:hover { background: var(--teal); border-color: var(--teal); }
+.btn-line { background: transparent; color: var(--ink); }
+.btn-line:hover { background: var(--ink); color: var(--paper); }
+.dark .btn-line { color: var(--paper); border-color: rgba(255,255,255,.5); }
+.dark .btn-line:hover { background: var(--paper); color: var(--ink); }
+.btn .ar-r { transition: transform .4s var(--ease); }
+.btn:hover .ar-r { transform: translateX(4px); }
+.btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+
+/* Prototype note */
+.note { background: var(--ink); color: var(--on-ink); font-size: .75rem; padding: .45rem var(--gutter); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .2rem 1rem; }
+
+/* Fixed top bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; height: var(--bar); display: flex; align-items: center; gap: 1.5rem; padding-inline: var(--gutter); background: color-mix(in srgb, var(--paper) 86%, transparent); backdrop-filter: blur(14px) saturate(1.2); border-bottom: 1px solid transparent; transition: border-color .4s; }
+.bar.scrolled { border-bottom-color: var(--rule); }
+.brand { display: flex; align-items: center; gap: .75rem; text-decoration: none; margin-inline-end: auto; }
+.brand .disc { width: 44px; height: 44px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; }
+.brand .disc { overflow: hidden; flex: none; }
+.brand .disc img { height: 34px; width: auto; }
+.brand b { font-family: var(--display); font-weight: 500; font-size: 1.3rem; letter-spacing: -.01em; }
+.bar nav a { text-decoration: none; font-weight: 500; font-size: .9375rem; margin-inline-start: 1.6rem; }
+.bar nav a:hover { color: var(--clay-ink); }
+.menu-open { background: none; border: 1px solid var(--rule); border-radius: 999px; min-height: 44px; padding: 0 1.1em; font: 500 .9375rem var(--body); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: .6em; }
+.menu-open i { display: grid; gap: 4px; } .menu-open i::before, .menu-open i::after { content: ""; width: 16px; height: 1.5px; background: currentColor; display: block; }
+
+/* Full-screen menu */
+.overlay { position: fixed; inset: 0; z-index: 60; background: var(--teal); color: var(--paper); display: grid; grid-template-rows: auto 1fr auto; padding: calc(1rem + env(safe-area-inset-top, 0px)) var(--gutter) calc(1.5rem + env(safe-area-inset-bottom, 0px)); overflow-y: auto; }
+.overlay[hidden] { display: none !important; }
+.overlay .top { display: flex; justify-content: space-between; align-items: center; min-height: 56px; }
+.overlay .close { background: none; border: 1px solid rgba(255,255,255,.35); color: var(--paper); border-radius: 999px; min-height: 44px; padding: 0 1.2em; font: 500 .9375rem var(--body); cursor: pointer; }
+.overlay ul { list-style: none; margin: 0; padding: 2rem 0; display: grid; align-content: center; gap: .2rem; }
+.overlay li a { display: flex; align-items: baseline; gap: 1rem; text-decoration: none; font-family: var(--display); font-size: clamp(2.4rem, 1.4rem + 5vw, 5.4rem); letter-spacing: -.04em; line-height: 1.05; transition: color .3s, transform .5s var(--ease); }
+.overlay li a:hover { color: var(--blush); transform: translateX(10px); }
+.overlay li small { font-family: var(--body); font-size: .875rem; letter-spacing: 0; color: var(--on-ink); }
+.overlay .meta { display: flex; flex-wrap: wrap; gap: 1rem 2rem; font-size: .9375rem; color: var(--on-ink); }
+.overlay .meta a { color: var(--paper); }
+
+/* Mobile dock */
+.dock { display: none; }
+
+/* Hero */
+.hero { padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem); row-gap: 2rem; align-items: end; }
+.hero-copy { grid-column: 1 / 8; display: grid; gap: 1.6rem; align-self: center; }
+.hero h1 { font-size: var(--s5); font-weight: 300; }
+.hero h1 b { font-weight: 500; display: block; }
+.hero h1 span { color: var(--clay-ink); }
+.hero .lede { max-width: 30rem; font-size: 1.125rem; color: var(--muted); }
+.hero .actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+.hero-art { grid-column: 8 / 13; position: relative; min-height: clamp(460px, 52vw, 680px); }
+.hero-art .back { position: absolute; inset: 0 30% 18% 0; border-radius: 4px; overflow: hidden; }
+.hero-art .front { position: absolute; inset: 22% 0 0 18%; background: var(--teal); border-radius: 4px; display: grid; place-items: center; box-shadow: 0 40px 60px -40px rgba(15,43,45,.6); }
+.hero-art .front .logo-anim { width: 46%; }
+.hero-art .cap { position: absolute; left: 0; bottom: 0; width: 16%; font-size: .75rem; color: var(--muted); line-height: 1.4; }
+.hero-strip { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+.hero-strip div { padding: 1.1rem 1.2rem 0 0; font-size: .9375rem; display: grid; gap: .2rem; min-width: 0; }
+.hero-strip div + div { padding-inline-start: 1.2rem; border-inline-start: 1px solid var(--rule); }
+.hero-strip b { font-family: var(--display); font-weight: 500; font-size: 1.2rem; letter-spacing: -.01em; }
+
+/* Image placeholder: immersive, flat, honest */
+.ph { position: relative; width: 100%; height: 100%; background: var(--t, #CFC5B6); display: grid; align-content: end; padding: clamp(.8rem, 2vw, 1.4rem); overflow: hidden; }
+.ph::before { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 80% at 20% 10%, rgba(255,255,255,.35), transparent 60%); }
+.ph::after { content: ""; position: absolute; right: 14%; top: 18%; width: 34%; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(15,43,45,.18); }
+.ph .lab { position: relative; z-index: 1; display: grid; gap: .15rem; justify-items: start; }
+.ph .code { font-size: .6875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: var(--paper); color: var(--ink); padding: .2em .55em; border-radius: 3px; }
+.ph .what { font-family: var(--display); font-size: clamp(1rem, .9rem + .5vw, 1.35rem); letter-spacing: -.01em; color: var(--ink); }
+.t1 { --t: #D9B9AC; } .t2 { --t: #C9D3CF; } .t3 { --t: #E2D6C4; } .t4 { --t: #B9C9C5; } .t5 { --t: #EBCFC8; } .t6 { --t: #D7CDBF; }
+
+/* Section heads */
+.sec { padding-block: clamp(4rem, 9vw, 8rem); }
+.sec-head { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: end; row-gap: 1rem; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.sec-head h2 { grid-column: 1 / 8; font-size: var(--s3); }
+.sec-head p { grid-column: 9 / 13; color: var(--muted); }
+
+/* Horizontal gallery driven by vertical scroll (desktop), native swipe elsewhere */
+.hs { position: relative; }
+.hs-sticky { padding-block: clamp(3rem, 6vw, 5rem); }
+.hs-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem 2rem; padding-inline: var(--gutter); margin-bottom: 2rem; }
+.hs-head h2 { font-size: var(--s3); }
+.hs-progress { width: min(240px, 40vw); height: 2px; background: var(--rule); position: relative; overflow: hidden; }
+.hs-progress i { position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(var(--p, .15)); }
+.hs-track { display: flex; gap: clamp(1rem, 2vw, 1.6rem); padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+.hs-track::-webkit-scrollbar { display: none; }
+.pc { flex: 0 0 clamp(270px, 30vw, 430px); scroll-snap-align: start; display: grid; gap: .9rem; text-decoration: none; }
+.pc .img { aspect-ratio: 3 / 4; border-radius: 4px; overflow: hidden; }
+.pc .img .ph { transition: transform 1s var(--ease); }
+.pc:hover .img .ph { transform: scale(1.03); }
+.pc .row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-top: 1px solid var(--rule); padding-top: .8rem; }
+.pc h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); letter-spacing: -.03em; }
+.pc .ar { color: var(--clay-ink); font-size: 1rem; }
+.pc p { color: var(--muted); font-size: .9375rem; }
+.pc.wide { flex-basis: clamp(320px, 44vw, 640px); }
+.pc.wide .img { aspect-ratio: 4 / 3.6; }
+.js-hs .hs { height: var(--hs-h, auto); }
+.js-hs .hs-sticky { position: sticky; top: var(--bar); height: calc(100vh - var(--bar)); overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-block: 1.5rem; }
+.js-hs .hs-track { overflow: visible; scroll-snap-type: none; will-change: transform; }
+.js-hs .pc .img { aspect-ratio: auto; height: min(52vh, 560px); }
+.js-hs .pc { flex-basis: min(32vw, calc(52vh * .75)); }
+.js-hs .pc.wide { flex-basis: min(46vw, calc(52vh * 1.15)); }
+
+/* Featured */
+.feat { align-items: start; row-gap: 2rem; }
+.feat-media { grid-column: 1 / 8; position: relative; padding-bottom: 14%; }
+.feat-media .main { aspect-ratio: 4 / 3; border-radius: 4px; overflow: hidden; }
+.feat-media .detail { position: absolute; right: -6%; bottom: 0; width: 38%; aspect-ratio: 3 / 4; border-radius: 4px; overflow: hidden; border: 8px solid var(--paper); }
+.feat-info { grid-column: 9 / 13; display: grid; gap: 1.4rem; position: sticky; top: calc(var(--bar) + 2rem); }
+.feat-info h2 { font-size: var(--s2); letter-spacing: -.03em; line-height: 1.05; }
+.price { font-family: var(--display); font-size: 2rem; letter-spacing: -.02em; display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; background: var(--paper-2); border-radius: 12px; }
+.seg button { min-height: 48px; border: 0; border-radius: 9px; background: transparent; font: 500 .9375rem var(--body); color: var(--ink); cursor: pointer; display: grid; line-height: 1.2; padding: .4rem; transition: background-color .3s, box-shadow .3s; }
+.seg button .ar { font-size: .75rem; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--paper); box-shadow: 0 1px 2px rgba(15,43,45,.12), 0 6px 14px -8px rgba(15,43,45,.3); }
+.lbl { font-size: var(--s-1); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; display: flex; gap: .6rem; align-items: center; margin-bottom: .6rem; }
+.fine { font-size: .875rem; color: var(--muted); }
+.fine button { all: unset; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; color: var(--ink); }
+.fine button:focus-visible { outline: 2px solid var(--terracotta); }
+.fine button, .hero-strip button { padding-block: 11px !important; margin-block: -11px !important; }
+
+/* Story: stacking panels */
+.story { padding-block: clamp(4rem, 8vw, 7rem) 0; }
+.story-intro { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: end; margin-bottom: 2.5rem; }
+.story-intro h2 { grid-column: 1 / 6; font-size: var(--s3); }
+.story-intro p { grid-column: 6 / 13; font-family: var(--display); font-size: var(--s2); line-height: 1.12; letter-spacing: -.025em; font-weight: 300; }
+.stack { padding-inline: var(--gutter); display: grid; gap: 0; }
+.slab { position: sticky; top: calc(var(--bar) + 12px); min-height: clamp(300px, 52vh, 460px); border-radius: 6px; padding: clamp(1.6rem, 4vw, 3.4rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1.5rem 3rem; align-content: start; margin-bottom: 18vh; box-shadow: 0 -20px 40px -30px rgba(15,43,45,.35); }
+.slab:last-child { margin-bottom: 0; }
+.slab .k { font-size: var(--s-1); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.slab p { font-family: var(--display); font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.8rem); line-height: 1.1; letter-spacing: -.03em; font-weight: 300; max-width: 26ch; }
+.s1 { background: var(--paper-2); } .s2 { background: var(--blush); } .s3 { background: var(--teal); color: var(--paper); } .s4 { background: var(--ink); color: var(--paper); }
+.s3 .k, .s4 .k { color: var(--blush); }
+
+/* Order */
+.order { row-gap: 2rem; }
+.order h2 { grid-column: 1 / 6; font-size: var(--s5); font-weight: 300; }
+.order-list { grid-column: 7 / 13; border-top: 1px solid var(--rule); align-self: end; }
+.ol { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .2rem 1rem; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; min-height: 64px; }
+.ol b { font-family: var(--display); font-weight: 500; font-size: 1.5rem; letter-spacing: -.02em; }
+.ol span { grid-column: 1; color: var(--muted); font-size: .9375rem; overflow-wrap: anywhere; }
+.ol .go { grid-row: 1 / 3; grid-column: 2; font-size: 1.4rem; transition: transform .4s var(--ease); }
+a.ol:hover .go { transform: translate(4px, -4px); }
+.custom { grid-column: 1 / -1; background: var(--teal); color: var(--paper); border-radius: 6px; padding: clamp(1.8rem, 4vw, 3rem); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1.5rem 3rem; }
+.custom h3 { font-size: var(--s2); letter-spacing: -.03em; max-width: 20ch; }
+.custom p { color: var(--on-ink); margin-top: .6rem; }
+
+/* Policy drawer */
+.side { position: fixed; z-index: 70; top: 0; right: 0; bottom: 0; width: min(560px, 100%); background: var(--paper); color: var(--ink); box-shadow: -30px 0 60px -30px rgba(15,43,45,.5); overflow-y: auto; padding: calc(1.2rem + env(safe-area-inset-top, 0px)) clamp(1.4rem, 4vw, 2.6rem) calc(2rem + env(safe-area-inset-bottom, 0px)); display: grid; gap: 1rem; align-content: start; transform: translateX(100%); transition: transform .6s var(--ease); visibility: hidden; }
+.side.open { transform: none; visibility: visible; }
+.scrim { position: fixed; inset: 0; z-index: 65; background: rgba(15,43,45,.45); opacity: 0; pointer-events: none; transition: opacity .5s; }
+.scrim.open { opacity: 1; pointer-events: auto; }
+.side .x { justify-self: end; background: none; border: 1px solid var(--rule); border-radius: 999px; min-height: 44px; padding: 0 1.1em; font: 500 .9375rem var(--body); cursor: pointer; color: var(--ink); }
+.side h2 { font-size: var(--s2); }
+.side h3 { font-family: var(--display); font-size: 1.4rem; letter-spacing: -.02em; margin-top: .6rem; }
+.side ul { margin: 0; padding-inline-start: 1.1rem; display: grid; gap: .45rem; }
+.side li::marker { color: var(--terracotta); }
+
+/* Footer */
+.foot { background: var(--ink); color: var(--on-ink); padding-block: clamp(4rem, 8vw, 6rem) 2rem; margin-top: clamp(4rem, 8vw, 7rem); row-gap: 3rem; }
+.foot .mark { grid-column: 1 / 4; }
+.foot .mark .disc { width: clamp(150px, 15vw, 210px); aspect-ratio: 1; border-radius: 50%; background: var(--teal); display: grid; place-items: center; box-shadow: 0 0 0 1px rgba(247,202,199,.25), 0 0 0 14px var(--ink), 0 0 0 15px rgba(247,202,199,.14); }
+.foot .mark .logo-anim { width: 50%; }
+.foot .big { grid-column: 4 / 13; font-family: var(--display); color: var(--paper); font-size: var(--s3); font-weight: 300; letter-spacing: -.04em; line-height: 1; align-self: center; }
+.foot .cols { grid-column: 4 / 13; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; border-top: 1px solid rgba(255,255,255,.14); padding-top: 2rem; }
+.foot h4 { margin: 0 0 .9rem; font-size: var(--s-1); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--blush); }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+.foot a, .foot button { color: var(--paper); text-decoration: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-align: start; }
+.foot a:hover, .foot button:hover { color: var(--blush); }
+.foot .base { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 2rem; font-size: .8125rem; border-top: 1px solid rgba(255,255,255,.14); padding-top: 1.4rem; }
+
+/* Logo (official artwork in four layers) — V3 reveal: a spatial focus pull */
+.logo-anim { display: grid; aspect-ratio: 516 / 792; max-width: 100%; }
+.logo-anim img { grid-area: 1 / 1; width: 100%; height: auto; }
+.logo-anim.play img { animation: m-focus 1.5s var(--ease) both; }
+.logo-anim.play .l-heart { animation-delay: .55s; }
+.logo-anim.play .l-ar { animation-delay: .7s; }
+.logo-anim.play .l-word { animation-delay: .95s; }
+@keyframes m-focus { from { opacity: 0; transform: scale(1.14); filter: blur(12px); } 60% { opacity: 1; } to { opacity: 1; transform: none; filter: none; } }
+
+/* Hero depth on scroll */
+.js .hero-art .back { transform: translateY(calc(var(--py, 0) * -40px)); }
+.js .hero-art .front { transform: translateY(calc(var(--py, 0) * 20px)); }
+
+/* Reveals */
+.js .rv { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.js .rv.in { opacity: 1; transform: none; }
+
+
+/* Comfortable tap targets on touch screens */
+@media (max-width: 960px) {
+  footer li > a, footer li > button { display: inline-flex; align-items: center; min-height: 44px; }
+  footer ul { gap: 0 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .rv { opacity: 1; transform: none; }
+  .js .hero-art .back, .js .hero-art .front { transform: none; }
+  .slab { position: relative; top: 0; margin-bottom: 1rem; }
+}
+
+@media (max-width: 960px) {
+  :root { --bar: 64px; }
+  .bar nav, .bar .btn { display: none; }
+  .hero-copy, .hero-art, .feat-media, .feat-info, .order h2, .order-list, .foot .mark, .foot .big, .foot .cols { grid-column: 1 / -1; }
+  .sec-head h2, .sec-head p, .story-intro h2, .story-intro p { grid-column: 1 / -1; }
+  .hero-art { min-height: 0; aspect-ratio: 1 / 1.05; }
+  .hero-art .cap { display: none; }
+  .hero-strip { grid-template-columns: 1fr; }
+  .hero-strip div, .hero-strip div + div { padding: .9rem 0; border-inline-start: 0; }
+  .hero-strip div + div { border-top: 1px solid var(--rule); }
+  .feat-media .detail { right: 0; }
+  .feat-media .main .lab { max-width: 52%; }
+  .feat-info { position: static; }
+  .slab { grid-template-columns: 1fr; min-height: 0; margin-bottom: 12vh; }
+  .foot .cols { grid-template-columns: 1fr 1fr; }
+
+  /* Bottom dock: the mobile navigation */
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+  .dock { display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 50; background: var(--ink); color: var(--paper); border-radius: 18px; padding: 6px; box-shadow: 0 18px 40px -16px rgba(15,43,45,.6); }
+  .dock a { display: grid; justify-items: center; gap: 2px; padding: 6px 2px; min-height: 52px; text-decoration: none; font-size: .6875rem; font-weight: 500; border-radius: 12px; }
+  .dock a.on { background: rgba(255,255,255,.1); }
+  .dock svg { width: 22px; height: 22px; }
+  .dock a.order { background: var(--terracotta); color: var(--ink); }
+  .side { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 560px) {
+  .note .hide-sm { display: none; }
+  .brand b { display: none; }
+  .hero .actions .btn { flex: 1 1 auto; justify-content: center; }
+  .feat-media .detail { width: 44%; }
+  .foot .cols { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+}
+</style>
+
+<div class="note" role="note"><span>Design prototype · <strong>V3 Modern Premium</strong></span><span class="hide-sm">Pink tags mark items awaiting confirmation <span class="tbc">TBC</span> · image spaces show the photo needed</span></div>
+
+<header class="bar" id="top">
+  <a class="brand" href="#top" aria-label="SATER home"><span class="disc" aria-hidden="true"><img src="assets/logo/badge-160.webp" alt="" width="104" height="160"></span><b>SATER</b></a>
+  <nav aria-label="Quick links"><a href="#shop">Shop</a><a href="#story">Story</a><a href="#order">Contact</a></nav>
+  <a class="btn btn-ink" href="#order">Order</a>
+  <button class="menu-open" type="button" aria-expanded="false" aria-controls="overlay"><i aria-hidden="true"></i>Menu</button>
+</header>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="top"><span class="brand"><span class="disc" aria-hidden="true"><img src="assets/logo/badge-160.webp" alt="" width="104" height="160"></span></span><button class="close" type="button" data-close>Close</button></div>
+  <ul>
+    <li><a href="#shop">Shop <small>Bumpers, nests, muslin, playmats, organisers</small></a></li>
+    <li><a href="#featured">Made to measure</a></li>
+    <li><a href="#story">Our story</a></li>
+    <li><a href="#order">How to order</a></li>
+    <li><a href="#returns" data-policy>Returns</a></li>
+  </ul>
+  <div class="meta"><a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener">Instagram @saterr1</a><a href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener">Facebook group</a><span>WhatsApp <span class="tbc">TBC</span></span></div>
+</div>
+
+<main>
+  <section class="hero g" aria-labelledby="h1">
+    <div class="hero-copy">
+      <p class="tag">Baby essentials, made by mothers</p>
+      <h1 id="h1"><b>Made by mothers.</b> <span>Tested on our own babies.</span></h1>
+      <p class="lede">SATER designs for the real problems we faced as moms, to make motherhood a little easier and a lot more comfortable.</p>
+      <div class="actions">
+        <a class="btn btn-ink" href="#shop">Explore the collection <span class="ar-r" aria-hidden="true">→</span></a>
+        <a class="btn btn-line" href="#featured">Made to measure</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="false">
+      <div class="back"><div class="ph t3"><div class="lab"><span class="code">Photo P13</span><span class="what">Fabric &amp; stitching, macro detail</span></div></div></div>
+      <div class="front">
+        <div class="logo-anim" data-autoplay role="img" aria-label="SATER logo: a mother holding her sleeping baby, with the Arabic and English wordmark">
+          <img class="l-art" src="assets/logo/art.webp" alt="" width="516" height="792">
+          <img class="l-heart" src="assets/logo/heart.webp" alt="" width="516" height="792">
+          <img class="l-ar" src="assets/logo/arabic.webp" alt="" width="516" height="792">
+          <img class="l-word" src="assets/logo/wordmark.webp" alt="" width="516" height="792">
+        </div>
+      </div>
+      <p class="cap">Every product is tested by the founders on their own babies.</p>
+    </div>
+    <div class="hero-strip">
+      <div><b>Made to measure</b><span>Bed bumpers sized to your cot</span></div>
+      <div><b>Mother-founded</b><span>Designed from our own experience</span></div>
+      <div><b>7-day returns</b><span>From delivery · <button type="button" data-policy style="all:unset;cursor:pointer;text-decoration:underline">conditions apply</button></span></div>
+    </div>
+  </section>
+
+  <section class="hs" id="shop" aria-labelledby="shop-t">
+    <div class="hs-sticky">
+      <div class="hs-head">
+        <div><p class="tag">The collection</p><h2 id="shop-t">Shop by category</h2></div>
+        <div class="hs-progress" aria-hidden="true"><i></i></div>
+      </div>
+      <div class="hs-track" tabindex="0" role="region" aria-label="Product categories, scroll sideways">
+        <a class="pc wide" href="#featured"><div class="img"><div class="ph t1"><div class="lab"><span class="code">Photo P1</span><span class="what">Bed bumper in a cot</span></div></div></div><div class="row"><h3>Bed Bumpers</h3><span class="ar" lang="ar">جوانب</span></div><p>Sponge, polygonal, bubbles, braided · made to measure</p></a>
+        <a class="pc" href="#shop"><div class="img"><div class="ph t2"><div class="lab"><span class="code">Photo P6</span><span class="what">Oval nest</span></div></div></div><div class="row"><h3>Oval Nest</h3><span class="ar" lang="ar">نيست بيضاوي</span></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a class="pc" href="#shop"><div class="img"><div class="ph t4"><div class="lab"><span class="code">Photo P7</span><span class="what">Round nest</span></div></div></div><div class="row"><h3>Round Nest</h3><span class="ar" lang="ar">نيست دائري</span></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a class="pc" href="#shop"><div class="img"><div class="ph t3"><div class="lab"><span class="code">Photo P8</span><span class="what">Muslin cover</span></div></div></div><div class="row"><h3>Muslin Covers</h3></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a class="pc wide" href="#shop"><div class="img"><div class="ph t5"><div class="lab"><span class="code">Photo P9</span><span class="what">Playmat, from above</span></div></div></div><div class="row"><h3>Playmats</h3><span class="ar" lang="ar">بلاي مات</span></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a class="pc" href="#shop"><div class="img"><div class="ph t6"><div class="lab"><span class="code">Photo P10</span><span class="what">Organiser</span></div></div></div><div class="row"><h3>Organisers</h3><span class="ar" lang="ar">منظمات</span></div><p>Details <span class="tbc">TBC</span></p></a>
+        <a class="pc" href="#shop"><div class="img"><div class="ph t2"><div class="lab"><span class="code">Photo P11</span><span class="what">Product to confirm</span></div></div></div><div class="row"><h3 class="ar" lang="ar" style="letter-spacing:0">بورط</h3></div><p>English name &amp; details <span class="tbc">TBC</span></p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec g feat" id="featured" aria-labelledby="feat-t">
+    <div class="feat-media rv">
+      <div class="main"><div class="ph t1" id="feat-main"><div class="lab"><span class="code" id="feat-code">Photo P2</span><span class="what" id="feat-what">Sponge bumper, styled in the nursery</span></div></div></div>
+      <div class="detail"><div class="ph t3"><div class="lab"><span class="code">Photo P13</span><span class="what">Seam detail</span></div></div></div>
+    </div>
+    <div class="feat-info rv">
+      <p class="tag">Featured · made to measure</p>
+      <h2 id="feat-t">The bed bumper, sized to your cot.</h2>
+      <p class="price">EGP — <span class="tbc">Price TBC</span></p>
+      <div>
+        <p class="lbl">Style <span class="tbc">Options TBC</span></p>
+        <div class="seg" role="group" aria-label="Style">
+          <button type="button" aria-pressed="true" data-code="Photo P2" data-what="Sponge bumper, styled in the nursery">Sponge <span class="ar" lang="ar">سفنج</span></button>
+          <button type="button" aria-pressed="false" data-code="Photo P3" data-what="Polygonal bumper, styled in the nursery">Polygonal <span class="ar" lang="ar">مضلعة</span></button>
+          <button type="button" aria-pressed="false" data-code="Photo P4" data-what="Bubbles bumper, styled in the nursery">Bubbles <span class="ar" lang="ar">بابلز</span></button>
+          <button type="button" aria-pressed="false" data-code="Photo P5" data-what="Braided bumper, styled in the nursery">Braided <span class="ar" lang="ar">ضفيرة</span></button>
+        </div>
+      </div>
+      <p class="fine">Made to your cot’s measurements. Measuring guide, fabrics and lead time <span class="tbc">TBC</span></p>
+      <a class="btn btn-ink" href="#order" style="justify-content:center">Request this bumper <span class="ar-r" aria-hidden="true">→</span></a>
+      <p class="fine">Made-to-measure items can only be exchanged or returned for a manufacturing defect, a size mistake, or a fault in the product. <button type="button" data-policy>Full policy</button></p>
+    </div>
+  </section>
+
+  <section class="story" id="story" aria-labelledby="story-t">
+    <div class="g">
+      <div class="story-intro">
+        <h2 id="story-t">Our Story 🤍</h2>
+        <p>Sater started from a real experience… not just an idea.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <article class="slab s1"><span class="k">We are mothers first.</span><p>We’ve been through the same journey — the worries, the small details, and the constant need to keep our babies safe and comfortable.</p></article>
+      <article class="slab s2"><span class="k">We tried so many products…</span><p>Some looked nice, but didn’t really work.<br>Some made things harder instead of easier.</p></article>
+      <article class="slab s3"><span class="k">So we decided to create what we wished we had.</span><p>Every product at Sater is tested by us, on our own babies.<br>Designed to solve real problems we faced as moms.</p></article>
+      <article class="slab s4"><span class="k">Our goal is simple:</span><p>To make motherhood a little easier…<br>And a lot more comfortable for both mom and baby 👶🏻✨</p></article>
+    </div>
+  </section>
+
+  <section class="sec g order" id="order" aria-labelledby="order-t">
+    <h2 id="order-t" class="rv">Let’s talk.</h2>
+    <div class="order-list rv">
+      <a class="ol" href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener"><b>Instagram</b><span>@saterr1 · message us to order</span><span class="go" aria-hidden="true">↗</span></a>
+      <a class="ol" href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener"><b>Facebook group</b><span>The SATER community</span><span class="go" aria-hidden="true">↗</span></a>
+      <div class="ol"><b>WhatsApp</b><span>Number to be confirmed</span><span class="go"><span class="tbc">TBC</span></span></div>
+      <div class="ol"><b>Order online</b><span>Only if website checkout is approved</span><span class="go"><span class="tbc">Pending</span></span></div>
+    </div>
+    <div class="custom dark rv">
+      <div><p class="tag" style="color:var(--blush)">Custom order</p><h3>Need a bumper made to your cot’s exact size?</h3><p>The request steps will follow SATER’s process. <span class="tbc">Process TBC</span></p></div>
+      <a class="btn btn-line" href="#order" aria-disabled="true" title="The custom order page comes in a later stage">Start a request <span class="ar-r" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot g dark" id="returns">
+  <div class="mark">
+    <div class="disc">
+      <div class="logo-anim" data-inview role="img" aria-label="SATER logo">
+        <img class="l-art" src="assets/logo/art.webp" alt="" width="516" height="792" loading="lazy">
+        <img class="l-heart" src="assets/logo/heart.webp" alt="" width="516" height="792" loading="lazy">
+        <img class="l-ar" src="assets/logo/arabic.webp" alt="" width="516" height="792" loading="lazy">
+        <img class="l-word" src="assets/logo/wordmark.webp" alt="" width="516" height="792" loading="lazy">
+      </div>
+    </div>
+  </div>
+  <p class="big">From moms like you, with love and care.</p>
+  <div class="cols">
+    <div><h4>Shop</h4><ul><li><a href="#shop">Bed Bumpers</a></li><li><a href="#shop">Nests</a></li><li><a href="#shop">Muslin Covers</a></li><li><a href="#shop">Playmats</a></li><li><a href="#shop">Organisers</a></li></ul></div>
+    <div><h4>Help</h4><ul><li><a href="#order">How to order</a></li><li><a href="#featured">Made to measure</a></li><li><button type="button" data-policy>Exchange &amp; Returns</button></li><li>Delivery <span class="tbc">TBC</span></li></ul></div>
+    <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener">Facebook group</a></li></ul></div>
+    <div><h4>Contact</h4><p style="font-size:.9375rem">Phone, WhatsApp and email <span class="tbc">TBC</span></p></div>
+  </div>
+  <div class="base"><span>© 2026 SATER · <span class="ar" lang="ar">سَاتِر</span></span><span>Design prototype · not a live store</span></div>
+</footer>
+
+<nav class="dock" aria-label="Mobile">
+  <a href="#shop" data-sec="shop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>Shop</a>
+  <a href="#featured" data-sec="featured"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="9" width="18" height="7" rx="1.5"/><path d="M7 9v3M11 9v2M15 9v3M19 9v2"/></svg>Measure</a>
+  <a href="#story" data-sec="story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>Story</a>
+  <a href="#order" class="order" data-sec="order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg>Order</a>
+</nav>
+
+<div class="scrim" data-close-side></div>
+<aside class="side" id="policy" role="dialog" aria-modal="true" aria-labelledby="pol-t" aria-hidden="true">
+  <button class="x" type="button" data-close-side>Close</button>
+  <p class="tag">Customer care</p>
+  <h2 id="pol-t">Exchange &amp; Return Policy</h2>
+  <p>At Sater, your comfort and satisfaction are our priority 🤍</p>
+  <p>We offer exchange and return on all products under the following conditions:</p>
+  <ul>
+    <li>Items must be in their original condition, unused, and in the same quality as received.</li>
+    <li>Requests must be made within 7 days from the delivery date.</li>
+    <li>Customers are responsible for return shipping fees.</li>
+    <li>Refunds are processed via InstaPay only.</li>
+  </ul>
+  <h3>Customized Products</h3>
+  <p>Please note that all customized or made-to-measure items (including bed bumpers or any products made in specific sizes) are non-refundable and non-exchangeable.</p>
+  <p>However, exceptions apply only in the following cases:</p>
+  <ul>
+    <li>If the product has a manufacturing defect.</li>
+    <li>If there is a mistake in the size.</li>
+    <li>If there is any fault in the product itself.</li>
+  </ul>
+  <p>In these cases only, we will offer an exchange or return for the customized item.</p>
+</aside>
+
+<script>
+(() => {
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const bar = document.querySelector('.bar');
+
+  // Full-screen menu
+  const ov = document.getElementById('overlay'), mo = document.querySelector('.menu-open');
+  const setOv = open => { ov.hidden = !open; mo.setAttribute('aria-expanded', String(open)); document.body.style.overflow = open ? 'hidden' : ''; if (open) ov.querySelector('[data-close]').focus(); else mo.focus({ preventScroll: true }); };
+  mo.addEventListener('click', () => setOv(true));
+  ov.addEventListener('click', e => { if (e.target.closest('a, [data-close]')) setOv(false); });
+
+  // Policy side drawer
+  const side = document.getElementById('policy'), scrim = document.querySelector('.scrim');
+  let lastFocus = null;
+  const setSide = open => { side.classList.toggle('open', open); scrim.classList.toggle('open', open); side.setAttribute('aria-hidden', String(!open)); document.body.style.overflow = open ? 'hidden' : ''; if (open) { lastFocus = document.activeElement; side.querySelector('.x').focus(); } else if (lastFocus) lastFocus.focus({ preventScroll: true }); };
+  document.querySelectorAll('[data-policy]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); if (!ov.hidden) { ov.hidden = true; mo.setAttribute('aria-expanded', 'false'); } setSide(true); }));
+  document.querySelectorAll('[data-close-side]').forEach(el => el.addEventListener('click', () => setSide(false)));
+  addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (side.classList.contains('open')) setSide(false); else if (!ov.hidden) setOv(false); });
+
+  // Featured style selector
+  const fc = document.getElementById('feat-code'), fw = document.getElementById('feat-what');
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    fc.textContent = b.dataset.code; fw.textContent = b.dataset.what;
+  }));
+
+  // Horizontal gallery: driven by vertical scroll on wide screens
+  const hs = document.querySelector('.hs'), track = hs.querySelector('.hs-track'), prog = hs.querySelector('.hs-progress i');
+  const wide = matchMedia('(min-width: 961px)');
+  let hsOn = false;
+  const measure = () => {
+    hsOn = wide.matches && !calm;
+    root.classList.toggle('js-hs', hsOn);
+    track.style.transform = '';
+    if (hsOn) { const dist = track.scrollWidth - innerWidth; hs.style.setProperty('--hs-h', (dist + innerHeight) + 'px'); }
+    else hs.style.removeProperty('--hs-h');
+    tick();
+  };
+  const tick = () => {
+    if (hsOn) {
+      const r = hs.getBoundingClientRect(), dist = track.scrollWidth - innerWidth;
+      const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
+      track.style.transform = `translate3d(${-p * dist}px,0,0)`;
+      prog.style.setProperty('--p', Math.max(.08, p));
+    } else {
+      const max = track.scrollWidth - track.clientWidth;
+      prog.style.setProperty('--p', max > 0 ? Math.max(.08, track.scrollLeft / max) : 1);
+    }
+    bar.classList.toggle('scrolled', scrollY > 8);
+    const hero = document.querySelector('.hero-art').getBoundingClientRect();
+    root.style.setProperty('--py', calm ? 0 : Math.max(-1, Math.min(1, -hero.top / innerHeight)).toFixed(3));
+  };
+  addEventListener('scroll', () => requestAnimationFrame(tick), { passive: true });
+  track.addEventListener('scroll', () => requestAnimationFrame(tick), { passive: true });
+  addEventListener('resize', measure); wide.addEventListener('change', measure);
+  addEventListener('load', measure); measure();
+
+  // Mobile dock: highlight the current section
+  const dockLinks = document.querySelectorAll('.dock a');
+  if ('IntersectionObserver' in window) {
+    const so = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) dockLinks.forEach(a => a.classList.toggle('on', a.dataset.sec === en.target.id && !a.classList.contains('order'))); }), { rootMargin: '-45% 0px -50% 0px' });
+    ['shop', 'featured', 'story', 'order'].forEach(id => so.observe(document.getElementById(id)));
+  }
+
+  // Reveals
+  if (!calm && 'IntersectionObserver' in window) {
+    root.classList.add('js');
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  }
+
+  // Logo
+  const play = el => { el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); };
+  if (!calm) {
+    document.querySelectorAll('.logo-anim[data-autoplay]').forEach(play);
+    if ('IntersectionObserver' in window) {
+      const lo = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { play(en.target); lo.unobserve(en.target); } }), { threshold: .15 });
+      document.querySelectorAll('.logo-anim[data-inview]').forEach(el => lo.observe(el));
+    }
+  }
+  document.querySelectorAll('[aria-disabled="true"]').forEach(el => el.addEventListener('click', e => e.preventDefault()));
+})();
+</script>
+
+</body>
+</html>
