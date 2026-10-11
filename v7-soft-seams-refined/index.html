@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../favicon.png">
+<title>SATER Soft Seams Refined</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Aref+Ruqaa:wght@400&display=swap">
+</head>
+<body>
+<style>
+/* V7 "Soft Seams Refined" — V2's quilted, stitched panels kept as the base.
+   From V5: a literary serif italic for a few emotional lines, a warm blush-to-cream story panel, the soft oval founder frame,
+   calligraphic Arabic for the brand name, and the original logo on its own teal in the footer.
+   Simplified: no marquee, products within about a screen on phones, ordering always one tap away, story moved below shopping.
+   Deliberately single-theme: the brand palette is the design, so every colour is set explicitly. */
+:root {
+  color-scheme: light;
+  /* Sampled from the official logo */
+  --teal: #224E51;
+  --sleeve: #41666C;
+  --brown: #533127;
+  --terracotta: #CC8275;
+  --blush: #F7CAC7;
+  --white: #FFFFFF;
+  /* Supporting tones (as V2) */
+  --cotton: #FBF8F4;
+  --muslin: #E4EDEB;
+  --blush-soft: #FBE6E2;
+  --sand: #F1E7DB;
+  --teal-deep: #1A3D40;
+  --brown-muted: #6E4E43;
+  --terracotta-ink: #9E5A4E;
+  --on-teal: #D3DFDD;
+
+  --font: "Readex Pro", "Segoe UI", system-ui, sans-serif;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;      /* from V5: emotional lines only */
+  --ruqaa: "Aref Ruqaa", "Noto Naskh Arabic", serif;             /* from V5: the Arabic brand name only */
+
+  --step--1: .8125rem;
+  --step-0: 1rem;
+  --step-2: clamp(1.5rem, 1.15rem + 1.2vw, 2rem);
+  --step-3: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --step-4: clamp(2.4rem, 1.5rem + 3.8vw, 4.4rem);
+
+  --gutter: clamp(16px, 3.5vw, 48px);
+  --max: 1280px;
+  --r: clamp(22px, 2.6vw, 36px);
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --padded: inset 0 2px 0 rgba(255,255,255,.55), inset 0 -10px 24px rgba(83,49,39,.05), 0 18px 34px -24px rgba(83,49,39,.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body { margin: 0; background: var(--cotton); color: var(--brown); font-family: var(--font); font-weight: 300; font-size: var(--step-0); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+main { overflow-x: clip; }
+a { color: inherit; }
+h1, h2, h3 { font-weight: 400; line-height: 1.05; margin: 0; letter-spacing: -0.025em; text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.label { font-size: var(--step--1); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--terracotta-ink); }
+.on-dark .label { color: var(--blush); }
+.serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+.ruqaa { font-family: var(--ruqaa); }
+
+/* Unconfirmed marker (as V2) */
+.tbc { display: inline-flex; align-items: center; gap: .4em; font-size: .6875rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-deep); background: var(--muslin); border-radius: 999px; padding: .2em .7em; vertical-align: middle; white-space: nowrap; line-height: 1.5; }
+.tbc::before { content: ""; width: .5em; height: .5em; border-radius: 50%; background: var(--terracotta); }
+.on-dark .tbc { background: rgba(255,255,255,.14); color: var(--white); }
+
+/* Padded, stitched panel — V2's signature */
+.panel { position: relative; border-radius: var(--r); box-shadow: var(--padded); isolation: isolate; }
+.panel.stitch::after { content: ""; position: absolute; inset: 10px; border: 1.5px dashed var(--seam, var(--terracotta)); border-radius: calc(var(--r) - 10px); pointer-events: none; opacity: .7; z-index: 2; }
+.bg-teal { background: var(--teal); color: var(--white); --seam: rgba(247,202,199,.55); }
+.bg-blush { background: var(--blush-soft); }
+.bg-muslin { background: var(--muslin); --seam: var(--sleeve); }
+.bg-sand { background: var(--sand); }
+.bg-white { background: var(--white); }
+
+/* Buttons (as V2) */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .6em; min-height: 48px; font: 500 .9375rem/1 var(--font); text-decoration: none; padding: 0 1.6em; border-radius: 999px; border: 0; cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .25s; }
+.btn-teal { background: var(--teal); color: var(--white); box-shadow: inset 0 -3px 0 rgba(0,0,0,.18); }
+.btn-teal:hover { background: var(--teal-deep); }
+.btn-soft { background: var(--white); color: var(--brown); box-shadow: inset 0 -3px 0 rgba(83,49,39,.08), 0 0 0 1px rgba(83,49,39,.12); }
+.btn-soft:hover { box-shadow: inset 0 -3px 0 rgba(83,49,39,.08), 0 0 0 1px var(--brown); }
+.btn-sm { min-height: 44px; padding: 0 1.1em; font-size: .875rem; }
+.btn:active { transform: translateY(1px) scale(.99); }
+
+/* Ribbon */
+.ribbon { background: var(--teal-deep); color: var(--on-teal); font-size: var(--step--1); }
+.ribbon .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25em 1em; padding-block: .55em; }
+.ribbon strong { color: var(--white); }
+
+/* Header (as V2) */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--cotton) 92%, transparent); backdrop-filter: blur(10px); }
+.header-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; padding-block: .7rem; }
+.nav-group { display: flex; gap: clamp(.9rem, 2vw, 1.8rem); list-style: none; margin: 0; padding: 0; align-items: center; }
+.nav-group.right { justify-content: flex-end; }
+.nav-group a, .nav-group button.link { text-decoration: none; font: 400 .9375rem var(--font); padding: .4em .2em; border-radius: 6px; background: none; border: 0; cursor: pointer; color: inherit; }
+.nav-group a:hover { color: var(--terracotta-ink); }
+.brand { display: grid; justify-items: center; gap: .2rem; text-decoration: none; }
+.badge { width: 58px; height: 58px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; overflow: hidden; box-shadow: 0 0 0 4px var(--cotton), 0 0 0 5.5px rgba(204,130,117,.55); }
+.badge img { height: 46px; width: auto; }
+.brand-name { font-size: .75rem; font-weight: 500; letter-spacing: .38em; padding-inline-start: .38em; }
+.menu-toggle { display: none; justify-self: end; background: var(--white); border: 0; width: 46px; height: 46px; border-radius: 50%; cursor: pointer; color: var(--brown); box-shadow: 0 0 0 1px rgba(83,49,39,.12); }
+.menu-toggle svg { margin: auto; display: block; }
+.drawer { display: none; }
+@media (max-width: 960px) {
+  .header-row { grid-template-columns: auto 1fr auto; }
+  .nav-group { display: none; }
+  .brand { grid-column: 1; grid-auto-flow: column; align-items: center; gap: .7rem; }
+  .badge { width: 46px; height: 46px; box-shadow: none; }
+  .badge img { height: 36px; }
+  .brand-name { font-size: .9rem; }
+  .menu-toggle { display: block; grid-column: 3; }
+  .drawer { display: block; padding-bottom: 1rem; }
+  .drawer ul { list-style: none; margin: 0; padding: .5rem; display: grid; gap: .4rem; }
+  .drawer li a { display: block; padding: 1rem 1.2rem; border-radius: 18px; background: var(--white); text-decoration: none; font-size: 1.15rem; font-weight: 400; }
+}
+
+/* Hero bento (as V2; trust facts added to the message panel) */
+.hero { padding-block: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); }
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto; gap: clamp(.75rem, 1.4vw, 1.1rem); }
+.b-logo { grid-column: 1 / 6; grid-row: 1 / 3; display: grid; place-items: center; padding: clamp(2.5rem, 5vw, 4rem) 1.5rem; min-height: 100%; }
+.b-logo .logo-anim { width: min(64%, 300px); cursor: pointer; }
+.b-intro { grid-column: 6 / 13; grid-row: 1; padding: clamp(1.8rem, 4vw, 3.2rem); display: grid; gap: 1.2rem; align-content: center; }
+.b-intro h1 { font-size: var(--step-4); font-weight: 300; }
+.b-intro h1 .serif { color: var(--terracotta-ink); font-size: 1.06em; }
+.b-intro p.lede { font-size: 1.125rem; color: var(--brown-muted); max-width: 32rem; }
+.ctas { display: flex; flex-wrap: wrap; gap: .7rem; }
+.facts { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; margin: 0; padding: 0; }
+.facts li { display: inline-flex; align-items: center; gap: .4rem; font-size: .8125rem; font-weight: 400; background: rgba(255,255,255,.7); border-radius: 999px; padding: .3em .8em; }
+.facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+.b-tested { grid-column: 6 / 9; grid-row: 2; padding: clamp(1.6rem, 3vw, 2.4rem); display: grid; gap: .8rem; align-content: space-between; }
+.b-tested .big { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem); line-height: 1.15; }
+.b-tested .small { font-size: .9375rem; color: var(--brown-muted); }
+.b-photo { grid-column: 9 / 13; grid-row: 2; min-height: 260px; overflow: hidden; }
+
+/* Photo placeholder (as V2) */
+.ph { position: relative; width: 100%; height: 100%; min-height: inherit; max-width: 100%; display: grid; place-items: center; text-align: center; padding: 1.2rem;
+  background-color: var(--ph, var(--sand));
+  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.45) 0 2px, transparent 2px 14px); }
+.ph-in { display: grid; gap: .45rem; justify-items: center; max-width: 16rem; }
+.ph-kind { font-size: .6875rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; background: var(--white); color: var(--terracotta-ink); padding: .3em .8em; border-radius: 999px; }
+.ph-what { font-size: .9375rem; color: var(--brown); background: rgba(255,255,255,.7); padding: .15em .6em; border-radius: 6px; }
+.ph.t-blush { --ph: #F4D3CD; } .ph.t-muslin { --ph: #D3E0DD; } .ph.t-sand { --ph: #EADBC9; } .ph.t-clay { --ph: #E7C6B9; }
+
+/* Category shortcuts: stitched circles, directly under the hero */
+.shortcuts { padding-block: 1.2rem .4rem; }
+.sc { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(.6rem, 1.6vw, 1.2rem); list-style: none; margin: 0; padding: 0; }
+.sc a { display: grid; justify-items: center; gap: .45rem; text-decoration: none; text-align: center; font-size: .9rem; font-weight: 400; line-height: 1.25; }
+.sc .dot { position: relative; width: 100%; max-width: 104px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: var(--padded); transition: transform .35s var(--ease); }
+.sc .dot::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 1.5px dashed var(--terracotta); opacity: .7; }
+.sc .dot .ph { padding: 0; }
+.sc a:hover .dot { transform: translateY(-3px); }
+.sc small { color: var(--terracotta-ink); font-size: .8125rem; }
+
+/* Sections */
+.section { padding-block: clamp(3rem, 7vw, 6rem); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: clamp(1.6rem, 3.5vw, 2.6rem); }
+.sec-head h2 { font-size: var(--step-3); font-weight: 300; }
+.bridge { font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem); color: var(--terracotta-ink); margin-bottom: .5rem; }
+
+/* Category rail (as V2) with real actions instead of dead links */
+.rail-ctrl { display: flex; gap: .5rem; }
+.rail-ctrl button { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--white); color: var(--brown); cursor: pointer; box-shadow: 0 0 0 1px rgba(83,49,39,.14); font-size: 1.1rem; }
+.rail-ctrl button:disabled { opacity: .35; cursor: default; }
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(250px, 26vw, 320px); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; --bleed: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); padding: .5rem var(--bleed) 1.5rem; scroll-padding-inline: var(--bleed); margin-inline: calc(50% - 50vw); scrollbar-width: thin; scrollbar-color: var(--terracotta) transparent; }
+.card { scroll-snap-align: start; display: grid; grid-template-rows: auto 1fr; padding: 12px; gap: .9rem; }
+.card .ph { aspect-ratio: 4 / 5; border-radius: calc(var(--r) - 12px); height: auto; }
+.card-body { padding: .2rem .7rem .9rem; display: grid; gap: .45rem; align-content: start; position: relative; z-index: 3; }
+.card-title { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; }
+.card-title .en { font-size: 1.3rem; font-weight: 400; letter-spacing: -.01em; }
+.card-title [lang="ar"] { color: var(--terracotta-ink); font-size: 1rem; }
+.card-meta { font-size: .875rem; color: var(--brown-muted); }
+.card-acts { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .3rem; }
+
+/* Made to measure (as V2) */
+.mtm { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(.75rem, 1.4vw, 1.1rem); }
+.mtm-diagram { padding: clamp(1.5rem, 4vw, 3rem); display: grid; gap: 1rem; align-content: center; }
+.mtm-diagram svg { width: 100%; height: auto; max-width: 520px; margin-inline: auto; }
+.mtm-diagram .cap { font-size: .875rem; color: var(--brown-muted); text-align: center; }
+.mtm-info { padding: clamp(1.8rem, 4vw, 3.2rem); display: grid; gap: 1.2rem; align-content: start; }
+.mtm-info h2 { font-size: var(--step-3); font-weight: 300; }
+.price-row { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.price { font-size: 1.6rem; font-weight: 400; font-variant-numeric: tabular-nums; }
+.opt { border: 0; margin: 0; padding: 0; min-width: 0; }
+.opt legend { font-size: var(--step--1); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: 0; margin-bottom: .7rem; display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { font: 400 .9375rem/1 var(--font); min-height: 44px; padding: .8em 1.15em; border-radius: 14px; border: 0; background: var(--white); color: var(--brown); cursor: pointer; box-shadow: 0 0 0 1px rgba(83,49,39,.14), inset 0 -2px 0 rgba(83,49,39,.06); }
+.chip:hover { box-shadow: 0 0 0 1px var(--brown); }
+.chip[aria-pressed="true"] { background: var(--teal); color: var(--white); box-shadow: 0 0 0 1px var(--teal), inset 0 -3px 0 rgba(0,0,0,.2); }
+.mtm-note { font-size: .875rem; color: var(--brown-muted); padding-top: 1.1rem; border-top: 1.5px dashed rgba(204,130,117,.6); }
+.mtm-note button { all: unset; cursor: pointer; text-decoration: underline; padding-block: 11px; margin-block: -11px; }
+
+/* Order + policy (as V2; custom request now works) */
+.order-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(.75rem, 1.4vw, 1.1rem); }
+.order-panel { padding: clamp(1.8rem, 4vw, 3rem); display: grid; gap: 1.3rem; align-content: start; }
+.order-panel h2 { font-size: var(--step-3); font-weight: 300; }
+.channels { display: grid; gap: .6rem; }
+.channel { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem; min-height: 64px; padding: .9rem 1.3rem; border-radius: 18px; background: var(--white); text-decoration: none; box-shadow: 0 0 0 1px rgba(83,49,39,.1), inset 0 -3px 0 rgba(83,49,39,.05); min-width: 0; }
+a.channel:hover { box-shadow: 0 0 0 1px var(--brown), inset 0 -3px 0 rgba(83,49,39,.05); }
+.channel .name { font-size: 1.15rem; font-weight: 400; display: block; }
+.channel .detail { font-size: .875rem; color: var(--brown-muted); display: block; overflow-wrap: anywhere; }
+.channel .go { color: var(--terracotta-ink); font-size: 1.2rem; }
+.policy-panel { padding: clamp(1.8rem, 4vw, 3rem); display: grid; gap: 1rem; align-content: start; }
+.policy-panel h2 { font-size: var(--step-2); font-weight: 400; }
+.policy-panel details { border-top: 1.5px dashed rgba(65,102,108,.45); padding-top: .9rem; }
+.policy-panel summary { min-height: 44px; cursor: pointer; font-weight: 400; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.policy-panel summary::-webkit-details-marker { display: none; }
+.policy-panel summary::after { content: "+"; font-size: 1.3rem; line-height: 1; color: var(--teal); transition: transform .25s var(--ease); }
+.policy-panel details[open] summary::after { transform: rotate(45deg); }
+.policy-panel .pol { display: grid; gap: .8rem; padding-top: .9rem; font-size: .9375rem; }
+.policy-panel ul { margin: 0; padding-inline-start: 1.1rem; display: grid; gap: .4rem; }
+.policy-panel li::marker { color: var(--terracotta); }
+.custom-cta { grid-column: 1 / -1; padding: clamp(1.8rem, 4vw, 2.6rem) clamp(1.8rem, 4vw, 3rem); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.2rem 2rem; }
+.custom-cta h3 { font-size: var(--step-2); font-weight: 300; max-width: 24ch; }
+.custom-cta p { color: var(--on-teal); font-size: .9375rem; margin-top: .4rem; }
+
+/* Story: one compact section, warm blush-to-cream (from V5), serif for the emotional lines */
+.story { border-radius: var(--r); padding: clamp(1.6rem, 4.5vw, 4rem); background: linear-gradient(160deg, var(--blush-soft), #FBF1EA 48%, var(--cotton)); display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: clamp(1.5rem, 5vw, 4.5rem); align-items: center; }
+.story .oval { position: relative; aspect-ratio: 4 / 5; border-radius: 50% 50% 46% 46% / 40% 40% 60% 60%; overflow: hidden; box-shadow: var(--padded); max-width: 360px; width: 100%; justify-self: center; }
+.story .oval::after { content: ""; position: absolute; inset: 9px; border-radius: inherit; border: 1.5px dashed var(--terracotta); opacity: .7; }
+.story-copy { display: grid; gap: 1rem; max-width: 38rem; }
+.story-copy h2 { font-size: var(--step-2); font-weight: 400; }
+.story-copy .opening { font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.6rem); line-height: 1.15; color: var(--teal-deep); }
+.story-copy p { font-size: 1.0625rem; }
+.story-copy .pull { font-size: clamp(1.35rem, 1.1rem + .9vw, 1.75rem); line-height: 1.25; color: var(--terracotta-ink); }
+.story-copy .goal { font-size: clamp(1.25rem, 1.05rem + .7vw, 1.6rem); line-height: 1.35; color: var(--teal-deep); padding-top: 1rem; border-top: 1.5px dashed rgba(204,130,117,.55); }
+
+/* Instagram (as V2, now near the footer) */
+.ig { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: clamp(.75rem, 1.4vw, 1.1rem); }
+.ig a { border-radius: var(--r); overflow: hidden; text-decoration: none; min-height: 170px; display: block; }
+.ig a:first-child { grid-row: 1 / 3; min-height: 360px; }
+
+/* Footer: V2's scalloped teal, with the original logo on its own exact teal (from V5) */
+.site-footer { position: relative; background: var(--teal); color: var(--on-teal); margin-top: 40px; }
+.site-footer::before { content: ""; position: absolute; left: 0; right: 0; top: -22px; height: 23px; background: radial-gradient(circle at 24px 24px, var(--teal) 23px, transparent 24px) 0 0 / 48px 24px repeat-x; }
+.foot { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); padding-block: clamp(2.5rem, 6vw, 4rem) 2rem; align-items: center; }
+.foot .orig { width: clamp(150px, 16vw, 200px); height: auto; aspect-ratio: 1; }
+.foot-main { display: grid; gap: 2rem; }
+.foot-main .tag { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); color: var(--white); line-height: 1.2; max-width: 24ch; }
+.foot-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
+.foot-cols h4 { margin: 0 0 .7rem; font-size: var(--step--1); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--blush); }
+.foot-cols ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.foot-cols li > a, .foot-cols li > button { display: inline-flex; align-items: center; min-height: 40px; color: var(--white); text-decoration: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+.foot-cols li > a:hover, .foot-cols li > button:hover { text-decoration: underline; text-decoration-color: var(--terracotta); text-underline-offset: 4px; }
+.foot-cols p { font-size: .9375rem; }
+.foot-base { border-top: 1.5px dashed rgba(247,202,199,.35); padding-block: 1.4rem 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; font-size: var(--step--1); }
+.foot-base .ruqaa { font-size: 1.15rem; color: var(--blush); }
+
+/* "How to order" — one tap away on phones */
+.fab { display: none; }
+dialog.order { width: min(520px, calc(100% - 24px)); max-height: min(88dvh, 760px); border: 0; padding: 0; border-radius: 28px; background: var(--cotton); color: var(--brown); box-shadow: 0 40px 80px -30px rgba(26,61,64,.55); }
+dialog.order::backdrop { background: rgba(26,61,64,.45); }
+.order-in { padding: clamp(1.3rem, 4vw, 2rem); display: grid; gap: 1rem; }
+.order-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.order-top h2 { font-size: 1.6rem; font-weight: 400; }
+.order-x { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--white); box-shadow: 0 0 0 1px rgba(83,49,39,.14); cursor: pointer; font-size: 1.1rem; color: var(--brown); flex: none; }
+.context { background: var(--white); border-radius: 14px; padding: .7rem 1rem; font-size: .9375rem; }
+.context b { font-weight: 500; }
+.order-fine { font-size: .875rem; color: var(--brown-muted); }
+.order-fine button { all: unset; cursor: pointer; text-decoration: underline; color: var(--brown); padding-block: 11px; margin-block: -11px; }
+
+/* Animated logo (V2's approved reveal, unchanged) */
+.logo-anim { display: grid; aspect-ratio: 516 / 792; max-width: 100%; }
+.logo-anim img { grid-area: 1 / 1; width: 100%; height: auto; }
+.logo-anim .l-heart { transform-origin: 85% 32%; }
+.logo-anim.play .l-art { animation: la-art 1.3s var(--ease) both; }
+.logo-anim.play .l-heart { animation: la-heart-in .7s 1s cubic-bezier(.34,1.56,.64,1) both, la-beat 1.5s 1.9s ease-in-out 2; }
+.logo-anim.play .l-ar { animation: la-write 1.2s .75s cubic-bezier(.45,.05,.35,1) both; }
+.logo-anim.play .l-word { animation: la-word 1s 1.65s var(--ease) both; }
+@keyframes la-art { from { opacity: 0; transform: translateY(16px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes la-heart-in { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+@keyframes la-beat { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
+@keyframes la-write { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes la-word { from { opacity: 0; transform: translateY(8px); filter: blur(3px); } to { opacity: 1; transform: none; filter: none; } }
+
+@keyframes settle { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
+.bento > * { animation: settle .9s var(--ease) both; }
+.bento > :nth-child(2) { animation-delay: .08s; } .bento > :nth-child(3) { animation-delay: .16s; } .bento > :nth-child(4) { animation-delay: .24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@media (max-width: 960px) {
+  .b-intro { grid-column: 1 / -1; grid-row: auto; }
+  .b-logo { grid-column: 1 / 7; grid-row: auto; padding: 2rem 1rem; }
+  .b-logo .logo-anim { width: min(78%, 220px); }
+  .b-tested { grid-column: 7 / 13; grid-row: auto; }
+  .b-photo { grid-column: 1 / -1; grid-row: auto; min-height: 220px; }
+  .sc { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding: .3rem var(--gutter) .5rem; }
+  .sc::-webkit-scrollbar { display: none; }
+  .sc li { flex: 0 0 92px; scroll-snap-align: start; }
+  .mtm, .order-grid { grid-template-columns: 1fr; }
+  .story { grid-template-columns: 1fr; }
+  .story .oval { max-width: 260px; }
+  .foot { grid-template-columns: 1fr; }
+  .foot-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* ordering is one tap away */
+  body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  .fab { display: inline-flex; position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); align-items: center; gap: .55rem; min-height: 54px; padding: 0 1.5rem; border: 0; border-radius: 999px; background: var(--teal); color: var(--white); font: 500 1rem var(--font); cursor: pointer; box-shadow: 0 16px 34px -14px rgba(26,61,64,.75), inset 0 -3px 0 rgba(0,0,0,.18); white-space: nowrap; }
+  .fab svg { width: 20px; height: 20px; }
+  dialog.order { margin: auto auto 0; width: 100%; max-width: 100%; border-radius: 28px 28px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
+@media (max-width: 600px) {
+  .ribbon .hide-sm { display: none; }
+  /* Phones: message, actions and one product photo, then the categories */
+  .b-logo, .b-tested { display: none; }
+  .b-photo { min-height: 180px; }
+  .b-intro { padding: 1.5rem 1.3rem; gap: 1rem; }
+  .ctas .btn { flex: 1 1 100%; }
+  .facts li { font-size: .75rem; padding: .25em .65em; }
+  .ig { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .ig a:first-child { grid-column: 1 / -1; grid-row: auto; min-height: 220px; }
+  .ig a { min-height: 140px; }
+  .ig a:nth-child(n+4) { display: none; }
+  .channel { padding: .9rem 1rem; }
+  .rail-ctrl { display: none; }
+  .foot .orig { width: 150px; }
+}
+</style>
+
+<div class="ribbon" role="note">
+  <div class="wrap">
+    <span><strong>Design prototype</strong> · V7 Soft Seams Refined (V2 with V5 touches)</span>
+    <span class="hide-sm">Items marked <span class="tbc">TBC</span> are placeholders awaiting confirmation</span>
+  </div>
+</div>
+
+<header class="site-header" id="top">
+  <div class="wrap header-row">
+    <ul class="nav-group">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#measure">Made to measure</a></li>
+      <li><a href="#story">Our Story</a></li>
+    </ul>
+    <a class="brand" href="#top" aria-label="SATER home">
+      <span class="badge" aria-hidden="true"><img src="assets/logo/badge-160.webp" alt="" width="104" height="160"></span>
+      <span class="brand-name">SATER</span>
+    </a>
+    <ul class="nav-group right">
+      <li><a href="#returns">Returns</a></li>
+      <li><a class="btn btn-teal btn-sm" href="#order" data-order>How to order</a></li>
+    </ul>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 8h16M3 14h16"/></svg>
+    </button>
+  </div>
+  <div class="drawer wrap" id="drawer" hidden>
+    <ul>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#measure">Made to measure</a></li>
+      <li><a href="#order">How to order</a></li>
+      <li><a href="#returns">Exchange &amp; Returns</a></li>
+      <li><a href="#story">Our Story</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- HERO (V2 bento; on phones: message, actions, one photo) -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap bento">
+      <div class="panel stitch bg-blush b-intro">
+        <p class="label">Baby essentials · made by mothers</p>
+        <h1 id="hero-title">Motherhood, made <span class="serif">a little easier.</span></h1>
+        <p class="lede">From moms like you, with love and care. SATER makes the things we wished we had for our own babies.</p>
+        <div class="ctas">
+          <a class="btn btn-teal" href="#shop">Shop the collection</a>
+          <a class="btn btn-soft" href="#order" data-order>How to order</a>
+        </div>
+        <ul class="facts" aria-label="Why SATER">
+          <li>Tested on our own babies</li>
+          <li>Made to measure</li>
+          <li>7-day exchange &amp; return</li>
+        </ul>
+      </div>
+      <div class="panel stitch bg-teal b-logo">
+        <div class="logo-anim" id="hero-logo" data-autoplay tabindex="0" role="img" aria-label="SATER logo: a mother holding her sleeping baby, with the Arabic and English wordmark" title="Play logo animation">
+          <img class="l-art" src="assets/logo/art.webp" alt="" width="516" height="792">
+          <img class="l-heart" src="assets/logo/heart.webp" alt="" width="516" height="792">
+          <img class="l-ar" src="assets/logo/arabic.webp" alt="" width="516" height="792">
+          <img class="l-word" src="assets/logo/wordmark.webp" alt="" width="516" height="792">
+        </div>
+      </div>
+      <div class="panel stitch bg-muslin b-tested">
+        <p class="big">Tested by us, on our own babies.</p>
+        <p class="small">Designed to solve real problems we faced as moms.</p>
+      </div>
+      <div class="panel b-photo">
+        <div class="ph t-clay"><div class="ph-in"><span class="ph-kind">Photo placeholder</span><span class="ph-what">SATER bed bumper in a cot</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY SHORTCUTS -->
+  <nav class="wrap shortcuts" aria-label="Shop by category">
+    <ul class="sc">
+      <li><a href="#cat-bumpers"><span class="dot"><span class="ph t-blush"></span></span>Bed bumpers<small lang="ar">جوانب</small></a></li>
+      <li><a href="#cat-oval"><span class="dot"><span class="ph t-sand"></span></span>Oval nest<small lang="ar">نيست بيضاوي</small></a></li>
+      <li><a href="#cat-round"><span class="dot"><span class="ph t-muslin"></span></span>Round nest<small lang="ar">نيست دائري</small></a></li>
+      <li><a href="#cat-muslin"><span class="dot"><span class="ph t-muslin"></span></span>Muslin covers<small>&nbsp;</small></a></li>
+      <li><a href="#cat-playmats"><span class="dot"><span class="ph t-clay"></span></span>Playmats<small lang="ar">بلاي مات</small></a></li>
+      <li><a href="#cat-organisers"><span class="dot"><span class="ph t-sand"></span></span>Organisers<small lang="ar">منظمات</small></a></li>
+      <li><a href="#cat-other"><span class="dot"><span class="ph t-blush"></span></span><span lang="ar">بورط</span><small>Name TBC</small></a></li>
+    </ul>
+  </nav>
+
+  <!-- CATEGORY RAIL -->
+  <section class="section" id="shop" aria-labelledby="shop-title" style="padding-top:clamp(2rem,4vw,3rem)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="bridge serif">So we decided to create what we wished we had.</p>
+          <p class="label">The collection</p>
+          <h2 id="shop-title">Shop by category</h2>
+        </div>
+        <div class="rail-ctrl">
+          <button type="button" data-rail="-1" aria-label="Previous categories">←</button>
+          <button type="button" data-rail="1" aria-label="Next categories">→</button>
+        </div>
+      </div>
+      <div class="rail" id="rail" tabindex="0" role="region" aria-label="Product categories">
+        <article class="card panel stitch bg-white" id="cat-bumpers">
+          <div class="ph t-blush"><div class="ph-in"><span class="ph-kind">Photo</span><span class="ph-what">Bed bumper</span></div></div>
+          <div class="card-body"><div class="card-title"><span class="en">Bed Bumpers</span><span lang="ar">جوانب</span></div><span class="card-meta">4 styles · made to measure</span>
+            <div class="card-acts"><a class="btn btn-teal btn-sm" href="#measure">Choose a style</a></div></div>
+        </article>
+        <article class="card panel stitch bg-white" id="cat-oval">
+          <div class="ph t-sand"><div class="ph-in"><span class="ph-kind">Photo</span><span class="ph-what">Oval nest</span></div></div>
+          <div class="card-body"><div class="card-title"><span class="en">Oval Nest</span><span lang="ar">نيست بيضاوي</span></div><span class="card-meta">Details <span class="tbc">TBC</span></span>
+            <div class="card-acts"><button class="btn btn-teal btn-sm" type="button" data-order="Oval nest">Ask to order</button></div></div>
+        </article>
+        <article class="card panel stitch bg-white" id="cat-round">
+          <div class="ph t-muslin"><div class="ph-in"><span class="ph-kind">Photo</span><span class="ph-what">Round nest</span></div></div>
+          <div class="card-body"><div class="card-title"><span class="en">Round Nest</span><span lang="ar">نيست دائري</span></div><span class="card-meta">Details <span class="tbc">TBC</span></span>
+            <div class="card-acts"><button class="btn btn-teal btn-sm" type="button" data-order="Round nest">Ask to order</button></div></div>
+        </article>
+        <article class="card panel stitch bg-white" id="cat-muslin">
+          <div class="ph t-muslin"><div class="ph-in"><span class="ph-kind">Photo</span><span class="ph-what">Muslin cover</span></div></div>
+          <div class="card-body"><div class="card-title"><span class="en">Muslin Covers</span></div><span class="card-meta">Details <span class="tbc">TBC</span></span>
+            <div class="card-acts"><button class="btn btn-teal btn-sm" type="button" data-order="Muslin cover">Ask to order</button></div></div>
+        </article>
+        <article class="card panel stitch bg-white" id="cat-playmats">
+          <div class="ph t-clay"><div class="ph-in"><span class="ph-kind">Photo</span><span class="ph-what">Playmat</span></div></div>
+          <div class="card-body"><div class="card-title"><span class="en">Playmats</span><span lang="ar">بلاي مات</span></div><span class="card-meta">Details <span class="tbc">TBC</span></span>
+            <div class="card-acts"><button class="btn btn-teal btn-sm" type="button" data-order="Playmat">Ask to order</button></div></div>
+        </article>
+        <article class="card panel stitch bg-white" id="cat-organisers">
+          <div class="ph t-sand"><div class="ph-in"><span class="ph-kind">Photo</span><span class="ph-what">Organiser</span></div></div>
+          <div class="card-body"><div class="card-title"><span class="en">Organisers</span><span lang="ar">منظمات</span></div><span class="card-meta">Details <span class="tbc">TBC</span></span>
+            <div class="card-acts"><button class="btn btn-teal btn-sm" type="button" data-order="Organiser">Ask to order</button></div></div>
+        </article>
+        <article class="card panel stitch bg-white" id="cat-other">
+          <div class="ph t-blush"><div class="ph-in"><span class="ph-kind">Photo</span><span class="ph-what">Category to confirm</span></div></div>
+          <div class="card-body"><div class="card-title"><span class="en" lang="ar">بورط</span></div><span class="card-meta">English name <span class="tbc">TBC</span></span>
+            <div class="card-acts"><button class="btn btn-teal btn-sm" type="button" data-order="بورط">Ask to order</button></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MADE TO MEASURE / FEATURED (as V2) -->
+  <section class="section" id="measure" aria-labelledby="measure-title" style="padding-top:0">
+    <div class="wrap mtm">
+      <div class="panel stitch bg-muslin mtm-diagram">
+        <svg viewBox="0 0 520 400" role="img" aria-labelledby="cot-t">
+          <title id="cot-t">Top view of a cot with a bumper around its inside edge, showing the length and width you would measure</title>
+          <rect x="70" y="70" width="380" height="240" rx="10" fill="#FFFFFF" stroke="#41666C" stroke-width="2"/>
+          <g stroke="#41666C" stroke-width="1.4" opacity=".55">
+            <line x1="110" y1="70" x2="110" y2="310"/><line x1="150" y1="70" x2="150" y2="310"/><line x1="190" y1="70" x2="190" y2="310"/><line x1="230" y1="70" x2="230" y2="310"/><line x1="270" y1="70" x2="270" y2="310"/><line x1="310" y1="70" x2="310" y2="310"/><line x1="350" y1="70" x2="350" y2="310"/><line x1="410" y1="70" x2="410" y2="310"/>
+          </g>
+          <rect x="84" y="84" width="352" height="212" rx="8" fill="none" stroke="#CC8275" stroke-width="16" stroke-linejoin="round" opacity=".9"/>
+          <rect x="84" y="84" width="352" height="212" rx="8" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="6 6"/>
+          <rect x="100" y="100" width="320" height="180" rx="6" fill="#FBE6E2"/>
+          <g fill="none" stroke="#533127" stroke-width="1.5">
+            <path d="M70 352 H450"/><path d="M70 344 v16 M450 344 v16"/>
+            <path d="M482 70 V310"/><path d="M474 70 h16 M474 310 h16"/>
+          </g>
+          <text x="260" y="380" text-anchor="middle" font-family="Readex Pro, sans-serif" font-size="15" fill="#533127">Length · your measurement</text>
+          <text x="506" y="190" text-anchor="middle" font-family="Readex Pro, sans-serif" font-size="15" fill="#533127" transform="rotate(90 506 190)">Width</text>
+          <text x="260" y="196" text-anchor="middle" font-family="Readex Pro, sans-serif" font-size="15" fill="#6E4E43">Mattress</text>
+          <text x="260" y="50" text-anchor="middle" font-family="Readex Pro, sans-serif" font-size="13" fill="#9E5A4E" letter-spacing="1.5">BUMPER</text>
+        </svg>
+        <p class="cap">Illustration only. The measuring guide and which sizes we ask for <span class="tbc">TBC</span></p>
+      </div>
+      <div class="panel stitch bg-white mtm-info">
+        <p class="label">Featured · Made to measure</p>
+        <h2 id="measure-title">A bed bumper, made for your cot</h2>
+        <div class="price-row"><span class="price">EGP —</span><span class="tbc">Price TBC</span></div>
+        <fieldset class="opt">
+          <legend>Style <span class="tbc">Options TBC</span></legend>
+          <div class="chips" role="group" aria-label="Style" id="styles">
+            <button type="button" class="chip" aria-pressed="true" data-style="Sponge">Sponge <span lang="ar">سفنج</span></button>
+            <button type="button" class="chip" aria-pressed="false" data-style="Polygonal">Polygonal <span lang="ar">مضلعة</span></button>
+            <button type="button" class="chip" aria-pressed="false" data-style="Bubbles">Bubbles <span lang="ar">بابلز</span></button>
+            <button type="button" class="chip" aria-pressed="false" data-style="Braided">Braided <span lang="ar">ضفيرة</span></button>
+          </div>
+        </fieldset>
+        <div class="ctas">
+          <button class="btn btn-teal" type="button" id="order-bumper">Request this bumper</button>
+        </div>
+        <p class="mtm-note">Customized and made-to-measure items are non-refundable and non-exchangeable, except for a manufacturing defect, a mistake in the size, or a fault in the product itself. <button type="button" data-returns>Read the policy</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER + POLICY (as V2, moved up; custom request now works) -->
+  <section class="section" id="order" aria-labelledby="order-title" style="padding-top:0">
+    <div class="wrap order-grid">
+      <div class="panel stitch bg-sand order-panel">
+        <p class="label">How to order</p>
+        <h2 id="order-title">Message us to order</h2>
+        <p style="color:var(--brown-muted)">Tell us the product and style you’d like. We’ll confirm availability, price and delivery with you.</p>
+        <div class="channels">
+          <a class="channel" href="https://ig.me/m/saterr1" target="_blank" rel="noopener"><span><span class="name">Instagram</span><span class="detail">@saterr1 · send us a message</span></span><span class="go" aria-hidden="true">↗</span></a>
+          <a class="channel" href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener"><span><span class="name">Facebook group</span><span class="detail">Join the SATER community</span></span><span class="go" aria-hidden="true">↗</span></a>
+          <div class="channel"><span><span class="name">WhatsApp</span><span class="detail">Number to be confirmed</span></span><span class="tbc">TBC</span></div>
+          <div class="channel"><span><span class="name">Order online</span><span class="detail">Only if online checkout is approved</span></span><span class="tbc">Pending</span></div>
+        </div>
+      </div>
+
+      <div class="panel stitch bg-muslin policy-panel" id="returns">
+        <p class="label">Customer care</p>
+        <h2>Exchange &amp; Return Policy</h2>
+        <p>At Sater, your comfort and satisfaction are our priority 🤍</p>
+        <details open>
+          <summary>All products</summary>
+          <div class="pol">
+            <p>We offer exchange and return on all products under the following conditions:</p>
+            <ul>
+              <li>Items must be in their original condition, unused, and in the same quality as received.</li>
+              <li>Requests must be made within 7 days from the delivery date.</li>
+              <li>Customers are responsible for return shipping fees.</li>
+              <li>Refunds are processed via InstaPay only.</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>Customized Products</summary>
+          <div class="pol">
+            <p>Please note that all customized or made-to-measure items (including bed bumpers or any products made in specific sizes) are non-refundable and non-exchangeable.</p>
+            <p>However, exceptions apply only in the following cases:</p>
+            <ul>
+              <li>If the product has a manufacturing defect.</li>
+              <li>If there is a mistake in the size.</li>
+              <li>If there is any fault in the product itself.</li>
+            </ul>
+            <p>In these cases only, we will offer an exchange or return for the customized item.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Delivery</summary>
+          <div class="pol"><p>Delivery areas, fees and timing will be added once confirmed. <span class="tbc">TBC</span></p></div>
+        </details>
+      </div>
+
+      <div class="panel stitch bg-teal custom-cta on-dark">
+        <div>
+          <p class="label">Custom size</p>
+          <h3>Need a bumper made to your cot’s exact size?</h3>
+          <p>Send us your preferred style and your cot’s inner length and width. Measuring guide <span class="tbc">TBC</span></p>
+        </div>
+        <button class="btn btn-soft" type="button" data-order="Custom-size bed bumper">Message us your cot size</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR STORY: compact, below shopping (approved copy, verbatim) -->
+  <section class="section" id="story" aria-labelledby="story-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="story">
+        <div class="oval"><div class="ph t-blush"><div class="ph-in"><span class="ph-kind">Optional photo</span><span class="ph-what">The founders, or hands at work <span class="tbc">TBC</span></span></div></div></div>
+        <div class="story-copy">
+          <p class="label">About SATER</p>
+          <h2 id="story-title">Our Story 🤍</h2>
+          <p class="opening serif">Sater started from a real experience… not just an idea.</p>
+          <p>We are mothers first.<br>We’ve been through the same journey — the worries, the small details, and the constant need to keep our babies safe and comfortable.</p>
+          <p>We tried so many products…<br>Some looked nice, but didn’t really work.<br>Some made things harder instead of easier.</p>
+          <p class="pull serif">So we decided to create what we wished we had.</p>
+          <p>Every product at Sater is tested by us, on our own babies.<br>Designed to solve real problems we faced as moms.</p>
+          <p class="goal serif">Our goal is simple:<br>To make motherhood a little easier…<br>And a lot more comfortable for both mom and baby 👶🏻✨</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM (near the footer) -->
+  <section class="section" aria-labelledby="ig-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="label">@saterr1 · 10K+ followers</p>
+          <h2 id="ig-title">From our Instagram</h2>
+        </div>
+        <a class="btn btn-soft" href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener">Follow us ↗</a>
+      </div>
+      <div class="ig">
+        <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph t-blush"><div class="ph-in"><span class="ph-kind">Instagram photo</span></div></div></a>
+        <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph t-muslin"><div class="ph-in"><span class="ph-kind">Instagram photo</span></div></div></a>
+        <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph t-sand"><div class="ph-in"><span class="ph-kind">Instagram photo</span></div></div></a>
+        <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph t-clay"><div class="ph-in"><span class="ph-kind">Instagram photo</span></div></div></a>
+        <a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener" aria-label="View on Instagram"><div class="ph t-muslin"><div class="ph-in"><span class="ph-kind">Instagram photo</span></div></div></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap foot">
+    <img class="orig" src="assets/logo/sater-logo-original.webp" alt="SATER logo: a mother holding her sleeping baby, with the Arabic and English wordmark" width="1080" height="1080" loading="lazy">
+    <div class="foot-main">
+      <p class="tag serif">From moms like you, with love and care. To make motherhood easier.</p>
+      <div class="foot-cols">
+        <div><h4>Shop</h4><ul><li><a href="#cat-bumpers">Bed Bumpers</a></li><li><a href="#cat-oval">Baby Nests</a></li><li><a href="#cat-muslin">Muslin Covers</a></li><li><a href="#cat-playmats">Playmats</a></li><li><a href="#cat-organisers">Organisers</a></li></ul></div>
+        <div><h4>Help</h4><ul><li><button type="button" data-order>How to order</button></li><li><a href="#measure">Made to measure</a></li><li><button type="button" data-returns>Exchange &amp; Returns</button></li><li><button type="button" data-returns="delivery">Delivery</button></li></ul></div>
+        <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/saterr1/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener">Facebook group</a></li></ul></div>
+        <div><h4>Contact</h4><p>Phone, WhatsApp and email to be confirmed. <span class="tbc">TBC</span></p></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 SATER · <span class="ruqaa" lang="ar">سَاتِر</span></span>
+    <span>Design prototype · not a live store</span>
+  </div>
+</footer>
+
+<button class="fab" type="button" data-order aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5Z"/></svg>How to order</button>
+
+<dialog class="order" id="order-sheet" aria-labelledby="os-title">
+  <div class="order-in">
+    <div class="order-top"><h2 id="os-title">How to order</h2><button class="order-x" type="button" data-close aria-label="Close">✕</button></div>
+    <p class="context" id="os-context" hidden>You’re asking about: <b id="os-item"></b><br><span style="color:var(--brown-muted);font-size:.875rem">Mention it in your message so we can help faster.</span></p>
+    <p class="order-fine">Message us and we’ll confirm availability, price and delivery with you.</p>
+    <div class="channels">
+      <a class="channel" href="https://ig.me/m/saterr1" target="_blank" rel="noopener"><span><span class="name">Instagram</span><span class="detail">@saterr1 · send us a message</span></span><span class="go" aria-hidden="true">↗</span></a>
+      <a class="channel" href="https://www.facebook.com/share/g/1B5JW78XBk" target="_blank" rel="noopener"><span><span class="name">Facebook group</span><span class="detail">The SATER community</span></span><span class="go" aria-hidden="true">↗</span></a>
+      <div class="channel"><span><span class="name">WhatsApp</span><span class="detail">Number to be confirmed</span></span><span class="tbc">TBC</span></div>
+    </div>
+    <p class="order-fine">Exchange &amp; return within 7 days of delivery; custom sizes have their own conditions. <button type="button" data-returns>Read the policy</button></p>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Mobile menu
+  const toggle = $('.menu-toggle'), drawer = $('#drawer');
+  const setMenu = open => { drawer.hidden = !open; toggle.setAttribute('aria-expanded', String(open)); toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); };
+  toggle.addEventListener('click', () => setMenu(drawer.hidden));
+  drawer.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+
+  // "How to order" sheet, with the product the customer was looking at
+  const sheet = $('#order-sheet'), ctx = $('#os-context'), item = $('#os-item');
+  const openOrder = what => { ctx.hidden = !what; item.textContent = what || ''; setMenu(false); if (!sheet.open) sheet.showModal(); };
+  $$('[data-order]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openOrder(b.dataset.order); }));
+  $('#order-bumper').addEventListener('click', () => openOrder('Bed bumper · ' + ($('#styles [aria-pressed="true"]')?.dataset.style || '')));
+  sheet.addEventListener('click', e => { if (e.target === sheet || e.target.closest('[data-close]')) sheet.close(); });
+
+  // Returns / delivery: open the right panel and go there
+  const openReturns = which => {
+    if (sheet.open) sheet.close();
+    const ds = $$('#returns details');
+    if (which === 'delivery') ds[2].open = true; else { ds[0].open = true; ds[1].open = true; }
+    $('#returns').scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+  };
+  $$('[data-returns]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openReturns(b.dataset.returns); }));
+  $$('a[href="#returns"]').forEach(a => a.addEventListener('click', () => { $$('#returns details').slice(0, 2).forEach(d => d.open = true); }));
+
+  // Category rail arrows (as V2)
+  const rail = $('#rail'), btns = $$('[data-rail]');
+  const step = () => (rail.querySelector('.card')?.offsetWidth || 300) + 16;
+  btns.forEach(b => b.addEventListener('click', () => rail.scrollBy({ left: step() * Number(b.dataset.rail), behavior: calm ? 'auto' : 'smooth' })));
+  const sync = () => { btns[0].disabled = rail.scrollLeft < 4; btns[1].disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 4; };
+  rail.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); sync();
+
+  // Shortcuts: bring the chosen card into view inside the rail, and highlight it briefly
+  $$('.sc a').forEach(a => a.addEventListener('click', e => {
+    const card = $(a.getAttribute('href')); if (!card) return;
+    e.preventDefault();
+    $('#shop').scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+    rail.scrollTo({ left: card.offsetLeft - rail.offsetLeft - parseFloat(getComputedStyle(rail).paddingLeft), behavior: calm ? 'auto' : 'smooth' });
+    card.animate?.([{ boxShadow: '0 0 0 3px #CC8275' }, { boxShadow: '0 0 0 0 transparent' }], { duration: calm ? 1 : 1400, delay: 400 });
+  }));
+  $$('.foot-cols a[href^="#cat-"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); $(`.sc a[href="${a.getAttribute('href')}"]`).click(); }));
+
+  // Style chips
+  $$('.chips').forEach(group => group.addEventListener('click', e => {
+    const chip = e.target.closest('.chip'); if (!chip) return;
+    $$('.chip', group).forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+  }));
+
+  // Logo (V2's reveal, unchanged)
+  const play = el => { el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); };
+  if (!calm) $$('.logo-anim[data-autoplay]').forEach(el => {
+    if (el.offsetParent) play(el);
+    el.addEventListener('click', () => play(el));
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(el); } });
+  });
+})();
+</script>
+
+</body>
+</html>
