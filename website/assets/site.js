@@ -123,7 +123,7 @@
   const pd = $('#pd');
   if (pd) {
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const ph = (tone, code, what, imgSrc) => imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(what)}" style="width:100%;height:100%;object-fit:cover">` : `<div class="ph ${tone}"><div class="ph-in"><span class="ph-kind">Photo ${esc(code)}</span>${what ? `<span class="ph-what">${esc(what)}</span>` : ''}</div></div>`;
+    const ph = (tone, code, what, imgSrc) => imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(what)}" style="width:100%;height:100%;object-fit:contain;background:#faf6f2">` : `<div class="ph ${tone}"><div class="ph-in"><span class="ph-kind">Photo ${esc(code)}</span>${what ? `<span class="ph-what">${esc(what)}</span>` : ''}</div></div>`;
     let style = '';
     const name = p => p.en ? (p.ar ? `${p.en} (${p.ar})` : p.en) : p.ar;
     const msg = (p) => `Hello SATER 🤍\nI'd like to ask about the ${name(p)}${style ? `, ${style} style` : ''}.\nCould you send me the price, sizes and delivery details?\nThank you`;
