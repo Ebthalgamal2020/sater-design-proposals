@@ -108,7 +108,7 @@
       styles: [['Sponge', 'سفنج'], ['Polygonal', 'مضلعة'], ['Bubbles', 'بابلز'], ['Braided', 'ضفيرة']] },
     'oval-nest': { en: 'Oval Nest', ar: 'نيست بيضاوي', cat: 'Baby Nests', catId: 'nests', tone: 't-sand',
       photos: [['P6', 'Front view'], ['P6b', 'Angled view'], ['P6c', 'Side view'], ['P6d', 'Pillow detail'], ['P6e', 'Toy arch'], ['P6f', 'Fabric pattern']],
-      images: ['products/oval-nest-front.webp', 'products/oval-nest-angled.webp', 'products/oval-nest-side.webp', 'products/oval-nest-pillow.webp', 'products/oval-nest-toy-arch.webp', 'products/oval-nest-fabric.webp'] },
+      images: ['products/oval-nest-front.webp?v=3', 'products/oval-nest-angled.webp?v=3', 'products/oval-nest-side.webp?v=3', 'products/oval-nest-pillow.webp?v=3', 'products/oval-nest-toy-arch.webp?v=3', 'products/oval-nest-fabric.webp?v=3'] },
     'round-nest': { en: 'Round Nest', ar: 'نيست دائري', cat: 'Baby Nests', catId: 'nests', tone: 't-muslin',
       photos: [['P7', 'Round nest, from above'], ['P7b', 'Round nest, detail'], ['P7c', 'Round nest, in use']] },
     'muslin-cover': { en: 'Muslin Cover', ar: '', cat: 'Muslin Covers', catId: 'muslin', tone: 't-muslin',
