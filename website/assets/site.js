@@ -107,7 +107,8 @@
       photos: [['P2', 'Sponge bumper in a cot'], ['P3', 'Polygonal bumper'], ['P4', 'Bubbles bumper'], ['P5', 'Braided bumper']],
       styles: [['Sponge', 'سفنج'], ['Polygonal', 'مضلعة'], ['Bubbles', 'بابلز'], ['Braided', 'ضفيرة']] },
     'oval-nest': { en: 'Oval Nest', ar: 'نيست بيضاوي', cat: 'Baby Nests', catId: 'nests', tone: 't-sand',
-      photos: [['P6', 'Oval nest, from above'], ['P6b', 'Oval nest, detail'], ['P6c', 'Oval nest, in use']] },
+      photos: [['P6', 'Front view'], ['P6b', 'Angled view'], ['P6c', 'Side view'], ['P6d', 'Pillow detail'], ['P6e', 'Toy arch'], ['P6f', 'Fabric pattern']],
+      images: ['products/oval-nest-front.webp', 'products/oval-nest-angled.webp', 'products/oval-nest-side.webp', 'products/oval-nest-pillow.webp', 'products/oval-nest-toy-arch.webp', 'products/oval-nest-fabric.webp'] },
     'round-nest': { en: 'Round Nest', ar: 'نيست دائري', cat: 'Baby Nests', catId: 'nests', tone: 't-muslin',
       photos: [['P7', 'Round nest, from above'], ['P7b', 'Round nest, detail'], ['P7c', 'Round nest, in use']] },
     'muslin-cover': { en: 'Muslin Cover', ar: '', cat: 'Muslin Covers', catId: 'muslin', tone: 't-muslin',
@@ -122,7 +123,7 @@
   const pd = $('#pd');
   if (pd) {
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const ph = (tone, code, what) => `<div class="ph ${tone}"><div class="ph-in"><span class="ph-kind">Photo ${esc(code)}</span>${what ? `<span class="ph-what">${esc(what)}</span>` : ''}</div></div>`;
+    const ph = (tone, code, what, imgSrc) => imgSrc ? `<img src="${esc(imgSrc)}" alt="${esc(what)}" style="width:100%;height:100%;object-fit:cover">` : `<div class="ph ${tone}"><div class="ph-in"><span class="ph-kind">Photo ${esc(code)}</span>${what ? `<span class="ph-what">${esc(what)}</span>` : ''}</div></div>`;
     let style = '';
     const name = p => p.en ? (p.ar ? `${p.en} (${p.ar})` : p.en) : p.ar;
     const msg = (p) => `Hello SATER 🤍\nI'd like to ask about the ${name(p)}${style ? `, ${style} style` : ''}.\nCould you send me the price, sizes and delivery details?\nThank you`;
@@ -137,13 +138,13 @@
       $('#pd-cat').textContent = p.cat;
       $('#pd-title').innerHTML = p.en ? `<span>${esc(p.en)}</span>${p.ar ? `<span lang="ar">${esc(p.ar)}</span>` : ''}` : `<span lang="ar">${esc(p.ar)}</span>`;
       $('#pd-desc').innerHTML = p.desc ? esc(p.desc) : `Details from SATER <span class="tbc">TBC</span>`;
-      $('#pd-main').innerHTML = ph(p.tone, p.photos[0][0], p.photos[0][1]);
-      $('#pd-thumbs').innerHTML = p.photos.length > 1 ? p.photos.map((f, i) => `<button type="button" aria-pressed="${i === 0}" aria-label="Show photo: ${esc(f[1])}" data-i="${i}">${ph(p.tone, f[0], '')}</button>`).join('') : '';
+      $('#pd-main').innerHTML = ph(p.tone, p.photos[0][0], p.photos[0][1], p.images && p.images[0]);
+      $('#pd-thumbs').innerHTML = p.photos.length > 1 ? p.photos.map((f, i) => `<button type="button" aria-pressed="${i === 0}" aria-label="Show photo: ${esc(f[1])}" data-i="${i}">${ph(p.tone, f[0], '', p.images && p.images[i])}</button>`).join('') : '';
       $('#pd-thumbs').hidden = p.photos.length < 2;
       $('#pd-thumbs').onclick = e => {
         const b = e.target.closest('button'); if (!b) return;
         $$('button', $('#pd-thumbs')).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-        const f = p.photos[+b.dataset.i]; $('#pd-main').innerHTML = ph(p.tone, f[0], f[1]);
+        const f = p.photos[+b.dataset.i]; $('#pd-main').innerHTML = ph(p.tone, f[0], f[1], p.images && p.images[+b.dataset.i]);
       };
       const st = $('#pd-styles');
       st.hidden = !p.styles;
@@ -161,7 +162,7 @@
     };
     $('#pd-style-chips').addEventListener('pick', e => {
       const p = PRODUCTS[pd.dataset.id]; style = e.detail.dataset.style;
-      const f = p.photos[+e.detail.dataset.i]; if (f) { $('#pd-main').innerHTML = ph(p.tone, f[0], f[1]); $$('button', $('#pd-thumbs')).forEach((x, i) => x.setAttribute('aria-pressed', String(i === +e.detail.dataset.i))); }
+      const f = p.photos[+e.detail.dataset.i]; if (f) { $('#pd-main').innerHTML = ph(p.tone, f[0], f[1], p.images && p.images[+e.detail.dataset.i]); $$('button', $('#pd-thumbs')).forEach((x, i) => x.setAttribute('aria-pressed', String(i === +e.detail.dataset.i))); }
       $('#pd-request').href = 'made-to-measure.html#' + style.toLowerCase();
       $('#pd-msg').value = msg(p);
     });

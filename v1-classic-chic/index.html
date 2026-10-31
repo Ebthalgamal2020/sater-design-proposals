@@ -324,7 +324,7 @@ dialog.card::backdrop { background: rgba(24,59,61,.55); }
         </div>
       </div>
       <figure class="frame rv">
-        <div class="pic t-sage"><div class="ph"><span class="code">Photo P6</span><span class="what">Oval nest, styled</span></div></div>
+        <div class="pic t-sage"><img src="../products/oval-nest-front.webp" alt="Oval baby nest, front view" style="width:100%;height:100%;object-fit:cover"></div>
         <figcaption>Baby nests, oval &amp; round</figcaption>
       </figure>
     </div>
@@ -350,7 +350,7 @@ dialog.card::backdrop { background: rgba(24,59,61,.55); }
     <div class="index">
       <ol>
         <li><button type="button" aria-pressed="true" data-tone="t-clay" data-code="Photo P1" data-what="Bed bumper in a cot"><span class="thumb t-clay"></span><span class="nm">Bed Bumpers</span><span class="arn" lang="ar">جوانب</span><span class="ds">Sponge, polygonal, bubbles and braided · made to measure</span></button></li>
-        <li><button type="button" aria-pressed="false" data-tone="t-sage" data-code="Photo P6 · P7" data-what="Oval and round nests"><span class="thumb t-sage"></span><span class="nm">Baby Nests</span><span class="arn" lang="ar">نيست</span><span class="ds">Oval and round</span></button></li>
+        <li><button type="button" aria-pressed="false" data-tone="t-sage" data-code="Photo P6 · P7" data-what="Oval and round nests" data-img="../products/oval-nest-front.webp"><span class="thumb t-sage"></span><span class="nm">Baby Nests</span><span class="arn" lang="ar">نيست</span><span class="ds">Oval and round</span></button></li>
         <li><button type="button" aria-pressed="false" data-tone="t-sand" data-code="Photo P8" data-what="Muslin cover"><span class="thumb t-sand"></span><span class="nm">Muslin Covers</span><span class="arn"></span><span class="ds">Details to follow <span class="tbc">TBC</span></span></button></li>
         <li><button type="button" aria-pressed="false" data-tone="t-blush" data-code="Photo P9" data-what="Playmat"><span class="thumb t-blush"></span><span class="nm">Playmats</span><span class="arn" lang="ar">بلاي مات</span><span class="ds">Details to follow <span class="tbc">TBC</span></span></button></li>
         <li><button type="button" aria-pressed="false" data-tone="t-sand" data-code="Photo P10" data-what="Organiser"><span class="thumb t-sand"></span><span class="nm">Organisers</span><span class="arn" lang="ar">منظمات</span><span class="ds">Details to follow <span class="tbc">TBC</span></span></button></li>
@@ -499,7 +499,7 @@ dialog.card::backdrop { background: rgba(24,59,61,.55); }
   // Collection index → preview frame
   const pic = document.getElementById('preview-pic'), code = document.getElementById('preview-code'), what = document.getElementById('preview-what'), cap = document.getElementById('preview-cap');
   const items = document.querySelectorAll('.index li button');
-  const pick = b => { items.forEach(x => x.setAttribute('aria-pressed', String(x === b))); pic.className = 'pic ' + b.dataset.tone; code.textContent = b.dataset.code; what.textContent = b.dataset.what; cap.textContent = b.querySelector('.nm').textContent; };
+  const pick = b => { items.forEach(x => x.setAttribute('aria-pressed', String(x === b))); pic.className = 'pic ' + b.dataset.tone; if (b.dataset.img) { pic.innerHTML = '<img src="' + b.dataset.img + '" alt="' + b.dataset.what + '" style="width:100%;height:100%;object-fit:cover">'; } else { pic.innerHTML = '<div class="ph"><span class="code" id="preview-code">' + b.dataset.code + '</span><span class="what" id="preview-what">' + b.dataset.what + '</span></div>'; } cap.textContent = b.querySelector('.nm').textContent; };
   items.forEach(b => { b.addEventListener('click', () => pick(b)); b.addEventListener('mouseenter', () => pick(b)); b.addEventListener('focus', () => pick(b)); });
 
   // Featured style options
